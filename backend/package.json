@@ -1,0 +1,12 @@
+{
+  "name": "event-sourcing-example-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kooooichi24/event-sourcing-example-ts.git",
+  "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "typescript": "^5.3.3"
+  }
+}
