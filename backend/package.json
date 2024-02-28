@@ -1,10 +1,14 @@
 {
   "name": "event-sourcing-example-ts",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/kooooichi24/event-sourcing-example-ts.git",
   "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "format": "biome format --write ./src",
+    "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
+    "lint:ci": "tsc --noEmit && biome ci ./src"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
     "@types/node": "^20.11.20",
