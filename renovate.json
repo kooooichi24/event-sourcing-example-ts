@@ -2,5 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "timezone": "Asia/Tokyo",
+  "enabledManagers": [
+    "yarn"
+  ],
+  "schedule": "every weekend"
 }
