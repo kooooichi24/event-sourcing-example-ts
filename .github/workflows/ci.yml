@@ -9,7 +9,7 @@ defaults:
     working-directory: backend
 
 jobs:
-  - lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
