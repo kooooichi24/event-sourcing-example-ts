@@ -5,6 +5,7 @@
   "timezone": "Asia/Tokyo",
   "enabledManagers": ["yarn"],
   "commitMessagePrefix": "chore(deps):",
+  "rangeStrategy": "bump",
   "platformAutomerge": true,
   "packageRules": [
     {
