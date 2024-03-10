@@ -4,6 +4,10 @@
   "repository": "https://github.com/kooooichi24/event-sourcing-example-ts.git",
   "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.10.0",
+    "yarn": ">=4.0.2"
+  },
   "scripts": {
     "format": "biome format --write ./src",
     "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
