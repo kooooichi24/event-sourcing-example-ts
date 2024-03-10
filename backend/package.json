@@ -5,8 +5,7 @@
   "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=20.10.0",
-    "yarn": ">=4.0.2"
+    "node": ">=20.10.0"
   },
   "scripts": {
     "format": "biome format --write ./src",
