@@ -15,6 +15,9 @@
   "devDependencies": {
     "@biomejs/biome": "^1.6.0",
     "@types/node": "^20.11.26",
+    "esbuild": "^0.20.1",
+    "serverless-esbuild": "^1.52.1",
+    "serverless-offline": "^13.3.3",
     "typescript": "^5.4.2"
   },
   "dependencies": {
