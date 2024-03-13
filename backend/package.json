@@ -16,5 +16,10 @@
     "@biomejs/biome": "^1.6.1",
     "@types/node": "^20.11.26",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.1",
+    "@as-integrations/aws-lambda": "^3.1.0",
+    "graphql": "^16.8.1"
   }
 }
