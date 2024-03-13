@@ -1,0 +1,22 @@
+service: event-sourcing-example-ts-graphql-backend
+
+plugins:
+  - serverless-esbuild # serverless-esbuild precedes serverless-offline as the order is important. See https://github.com/floydspace/serverless-esbuild#serverless-offline
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  httpApi:
+    cors: true
+
+functions:
+  graphql:
+    handler: src/server.graphqlHandler
+    events:
+      - httpApi:
+          path: /
+          method: POST
+      - httpApi:
+          path: /
+          method: GET
