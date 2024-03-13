@@ -8,6 +8,7 @@
     "node": ">=20.11.1"
   },
   "scripts": {
+    "deploy:local": "serverless offline start",
     "format": "biome format --write ./src",
     "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
     "lint:ci": "tsc --noEmit && biome ci ./src"
@@ -15,6 +16,15 @@
   "devDependencies": {
     "@biomejs/biome": "^1.6.1",
     "@types/node": "^20.11.27",
+    "esbuild": "^0.20.1",
+    "serverless": "^3.38.0",
+    "serverless-esbuild": "^1.52.1",
+    "serverless-offline": "^13.3.3",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.1",
+    "@as-integrations/aws-lambda": "^3.1.0",
+    "graphql": "^16.8.1"
   }
 }
