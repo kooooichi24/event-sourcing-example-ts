@@ -1,7 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import {
-  startServerAndCreateLambdaHandler,
-  handlers,
+	handlers,
+	startServerAndCreateLambdaHandler,
 } from "@as-integrations/aws-lambda";
 
 // The GraphQL schema
@@ -13,20 +13,20 @@ const typeDefs = `#graphql
 
 // A map of functions which return data for the schema.
 const resolvers = {
-  Query: {
-    hello: () => "world",
-  },
+	Query: {
+		hello: () => "world",
+	},
 };
 
 // Set up Apollo Server
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+	typeDefs,
+	resolvers,
 });
 
 // This final export is important!
 export const graphqlHandler = startServerAndCreateLambdaHandler(
-  server,
-  // We will be using the Proxy V2 handler
-  handlers.createAPIGatewayProxyEventV2RequestHandler()
+	server,
+	// We will be using the Proxy V2 handler
+	handlers.createAPIGatewayProxyEventV2RequestHandler(),
 );
