@@ -16,7 +16,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.6.1",
     "@types/node": "^20.11.27",
-    "esbuild": "^0.20.1",
+    "esbuild": "^0.20.2",
     "serverless": "^3.38.0",
     "serverless-esbuild": "^1.52.1",
     "serverless-offline": "^13.3.3",
