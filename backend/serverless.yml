@@ -6,6 +6,7 @@ plugins:
 
 provider:
   name: aws
+  stage: local
   runtime: nodejs20.x
   httpApi:
     cors: true
