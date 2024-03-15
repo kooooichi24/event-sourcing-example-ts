@@ -22,3 +22,16 @@ functions:
       - httpApi:
           path: /
           method: GET
+
+custom:
+  dynamodb:
+    stages:
+      - local
+    start:
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: false
+      convertEmptyValues: true
+      noStart: true
