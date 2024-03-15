@@ -18,7 +18,13 @@ TODO: Add prerequisites
     yarn install
     ```
 
-2. Start the local server
+2. Set up the database
+
+    ```bash
+    yarn setup:db
+    ```
+
+3. Start the local server
 
     ```bash
     yarn deploy:local
