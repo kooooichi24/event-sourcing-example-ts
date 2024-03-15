@@ -8,6 +8,7 @@
     "node": ">=20.11.1"
   },
   "scripts": {
+    "setup:db": "docker-compose -f ./db/event-store/docker-compose.yml up -d",
     "deploy:local": "serverless offline start",
     "format": "biome format --write ./src",
     "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
