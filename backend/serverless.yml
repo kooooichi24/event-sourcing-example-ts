@@ -1,11 +1,14 @@
 service: event-sourcing-example-ts-graphql-backend
 
 plugins:
-  - serverless-esbuild # serverless-esbuild precedes serverless-offline as the order is important. See https://github.com/floydspace/serverless-esbuild#serverless-offline
+  - serverless-esbuild
+  - serverless-dynamodb-local
   - serverless-offline
 
 provider:
   name: aws
+  region: ap-northeast-1
+  stage: local
   runtime: nodejs20.x
   httpApi:
     cors: true
@@ -20,3 +23,16 @@ functions:
       - httpApi:
           path: /
           method: GET
+
+custom:
+  dynamodb:
+    stages:
+      - local
+    start:
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: false
+      convertEmptyValues: true
+      noStart: true
