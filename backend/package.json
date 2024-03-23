@@ -9,6 +9,7 @@
   },
   "scripts": {
     "setup:db": "docker-compose -f ./db/event-store/docker-compose.yml up -d",
+    "test": "jest",
     "deploy:local": "serverless offline start",
     "format": "biome format --write ./src",
     "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
