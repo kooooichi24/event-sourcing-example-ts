@@ -19,6 +19,7 @@ export class WorkspaceCreated implements WorkspaceEvent {
 	readonly symbol: typeof WorkspaceCreatedTypeSymbol =
 		WorkspaceCreatedTypeSymbol;
 	readonly typeName = "WorkspaceCreated";
+	readonly isCreated = true;
 
 	private constructor(
 		public readonly id: string,
@@ -27,8 +28,6 @@ export class WorkspaceCreated implements WorkspaceEvent {
 		public readonly sequenceNumber: number,
 		public readonly occurredAt: Date,
 	) {}
-
-	isCreated = true;
 
 	toString() {
 		return `WorkspaceCreated(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.name.toString()}, ${
