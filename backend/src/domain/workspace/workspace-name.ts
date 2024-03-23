@@ -44,6 +44,6 @@ export class WorkspaceName {
 	}
 
 	static of(value: string): WorkspaceName {
-		return new WorkspaceName(value);
+		return new WorkspaceName(value.trim());
 	}
 }
