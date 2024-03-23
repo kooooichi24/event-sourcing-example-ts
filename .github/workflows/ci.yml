@@ -22,3 +22,16 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Run linter
         run: yarn lint:ci
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./backend/.node-version
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests
+        run: yarn test
