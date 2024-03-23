@@ -38,9 +38,8 @@ export class WorkspaceName {
 		} catch (e) {
 			if (e instanceof Error) {
 				return E.left(e.message);
-			} else {
-				throw e;
 			}
+			throw e;
 		}
 	}
 

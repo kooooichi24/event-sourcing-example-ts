@@ -39,14 +39,13 @@ export class WorkspaceId implements AggregateId {
 		} catch (e) {
 			if (e instanceof Error) {
 				return E.left(e.message);
-			} else {
-				throw e;
 			}
+			throw e;
 		}
 	}
 
 	static of(value: string): WorkspaceId {
-		const uuid = value.startsWith(WORKSPACE_PREFIX + "-")
+		const uuid = value.startsWith(`${WORKSPACE_PREFIX}-`)
 			? value.slice(WORKSPACE_PREFIX.length + 1)
 			: value;
 		return new WorkspaceId(uuid);
