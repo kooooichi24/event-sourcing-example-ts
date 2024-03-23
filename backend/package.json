@@ -34,7 +34,7 @@
   "dependencies": {
     "@apollo/server": "^4.10.2",
     "@as-integrations/aws-lambda": "^3.1.0",
-    "event-store-adapter-js": "^2.1.23-snapshot.1",
+    "event-store-adapter-js": "^2.1.23",
     "fp-ts": "^2.16.4",
     "graphql": "^16.8.1",
     "uuid": "^9.0.1"
