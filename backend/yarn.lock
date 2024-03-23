@@ -5048,7 +5048,7 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-event-store-adapter-js@^2.1.23-snapshot.1:
+event-store-adapter-js@^2.1.23:
   version "2.1.23"
   resolved "https://registry.yarnpkg.com/event-store-adapter-js/-/event-store-adapter-js-2.1.23.tgz#ea0c6dc33e0c8534ae346603198afc82b8f6df4b"
   integrity sha512-0sUKpx7oAZjEG4DCUWVIPZedgz7f5g1v0jVJwlpASqdkxj4xbhqxAcSVQVfbJsg69z/pSBhofwe+jEx+86zULw==
