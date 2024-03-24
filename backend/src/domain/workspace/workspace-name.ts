@@ -1,4 +1,5 @@
 import * as E from "fp-ts/Either";
+import isValidDomain from "is-valid-domain";
 
 export const WorkspaceNameTypeSymbol = Symbol("WorkspaceName");
 
@@ -11,6 +12,9 @@ export class WorkspaceName {
 		}
 		if (this.value.length > 20) {
 			throw new Error("WorkspaceName cannot be longer than 20 characters");
+		}
+		if (!isValidDomain(`${this.value}.example.com`)) {
+			throw new Error("Invalid domain format");
 		}
 	}
 
