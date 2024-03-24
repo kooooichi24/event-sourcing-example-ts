@@ -37,6 +37,7 @@
     "event-store-adapter-js": "^2.1.23",
     "fp-ts": "^2.16.4",
     "graphql": "^16.8.1",
+    "is-valid-domain": "^0.1.6",
     "uuid": "^9.0.1"
   }
 }
