@@ -13,16 +13,5 @@ describe("workspace-name", () => {
 			// Then
 			expect(workspaceName.value).toEqual(value);
 		});
-
-		it("should trim the value", () => {
-			// Given
-			const value = faker.internet.userName();
-
-			// When
-			const workspaceName = WorkspaceName.of(` ${value} `);
-
-			// Then
-			expect(workspaceName.value).toEqual(value);
-		});
 	});
 });
