@@ -5,7 +5,7 @@
   "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=20.12.0"
+    "node": ">=20.11.1"
   },
   "scripts": {
     "setup:db": "docker-compose -f ./db/event-store/docker-compose.yml up -d",
