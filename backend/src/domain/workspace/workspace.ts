@@ -41,11 +41,39 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 		];
 	}
 
+	static of(params: WorkspaceParams): Workspace {
+		return new Workspace(params);
+	}
+
 	withVersion(version: number): Workspace {
 		return new Workspace({ ...this, version });
 	}
 
 	updateVersion(versionF: (value: number) => number): Workspace {
 		return new Workspace({ ...this, version: versionF(this.version) });
+	}
+
+	equals(other: Workspace): boolean {
+		return (
+			this.id.equals(other.id) &&
+			this.name.equals(other.name) &&
+			this.sequenceNumber === other.sequenceNumber &&
+			this.version === other.version
+		);
+	}
+
+	toJSON(): Record<string, unknown> {
+		return {
+			id: this.id.toJSON(),
+			name: this.name.toJSON(),
+			sequenceNumber: this.sequenceNumber,
+			version: this.version,
+		};
+	}
+
+	toString(): string {
+		return `Workspace(${this.id.toString()}, ${this.name.toString()}, ${
+			this.sequenceNumber
+		}, ${this.version})`;
 	}
 }
