@@ -70,4 +70,10 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 			version: this.version,
 		};
 	}
+
+	toString(): string {
+		return `Workspace(${this.id.toString()}, ${this.name.toString()}, ${
+			this.sequenceNumber
+		}, ${this.version})`;
+	}
 }
