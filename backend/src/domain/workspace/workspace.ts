@@ -52,4 +52,13 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 	updateVersion(versionF: (value: number) => number): Workspace {
 		return new Workspace({ ...this, version: versionF(this.version) });
 	}
+
+	equals(other: Workspace): boolean {
+		return (
+			this.id.equals(other.id) &&
+			this.name.equals(other.name) &&
+			this.sequenceNumber === other.sequenceNumber &&
+			this.version === other.version
+		);
+	}
 }
