@@ -61,4 +61,13 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 			this.version === other.version
 		);
 	}
+
+	toJSON(): Record<string, unknown> {
+		return {
+			id: this.id.toJSON(),
+			name: this.name.toJSON(),
+			sequenceNumber: this.sequenceNumber,
+			version: this.version,
+		};
+	}
 }
