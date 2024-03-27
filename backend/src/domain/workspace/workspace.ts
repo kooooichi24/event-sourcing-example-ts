@@ -41,6 +41,10 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 		];
 	}
 
+	static of(params: WorkspaceParams): Workspace {
+		return new Workspace(params);
+	}
+
 	withVersion(version: number): Workspace {
 		return new Workspace({ ...this, version });
 	}
