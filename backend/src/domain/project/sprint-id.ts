@@ -1,7 +1,7 @@
 import * as E from "fp-ts/Either";
 import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 
-export const SprintIdTypeSymbol = Symbol("SprintrId");
+export const SprintIdTypeSymbol = Symbol("SprintId");
 
 export class SprintId {
 	readonly symbol: typeof SprintIdTypeSymbol = SprintIdTypeSymbol;
