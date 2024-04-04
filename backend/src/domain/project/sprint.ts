@@ -43,6 +43,14 @@ export class Sprint {
     return new Sprint(params);
   }
 
+  withName(name: SprintName): Sprint {
+    return new Sprint({ ...this, name });
+  }
+
+  withGoal(goal: SprintGoal): Sprint {
+    return new Sprint({ ...this, goal });
+  }
+
   isFuture(): boolean {
     return this.state === "Future";
   }
@@ -77,6 +85,14 @@ export class Sprint {
     }
 
     return new Sprint({ ...this, state: "Done" });
+  }
+
+  withStartDateTime(startDateTime: dayjs.Dayjs): Sprint {
+    return new Sprint({ ...this, startDateTime });
+  }
+
+  withEndDateTime(endDateTime: dayjs.Dayjs): Sprint {
+    return new Sprint({ ...this, endDateTime });
   }
 
   equals(other: Sprint): boolean {
