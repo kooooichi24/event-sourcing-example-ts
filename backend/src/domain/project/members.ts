@@ -134,7 +134,7 @@ export class Members {
   }
 
   toString(): string {
-    return `${Member.name}(${JSON.stringify(
+    return `${Members.name}(${JSON.stringify(
       this.toArray().map((m) => m.toString())
     )})`;
   }
