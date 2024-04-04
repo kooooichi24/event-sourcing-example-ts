@@ -26,7 +26,7 @@ export class AccountId implements AggregateId {
 	}
 
 	toString() {
-		return `${AccountId.name}-${this.value}`;
+		return `${AccountId.name}(${this.value})`;
 	}
 
 	equals(anotherId: AccountId): boolean {
