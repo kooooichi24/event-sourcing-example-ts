@@ -31,8 +31,8 @@ export class SprintName {
 		}
 	}
 
-	equals(anotherId: SprintName): boolean {
-		return this.value === anotherId.value;
+	equals(anotherSprintName: SprintName): boolean {
+		return this.value === anotherSprintName.value;
 	}
 
 	toJSON() {
