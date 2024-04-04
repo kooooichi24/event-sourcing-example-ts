@@ -1,6 +1,6 @@
 import type dayjs from "dayjs";
 import type { SprintGoal } from "./sprint-goal";
-import type { SprintId } from "./sprint-id";
+import { SprintId } from "./sprint-id";
 import type { SprintName } from "./sprint-name";
 
 type SprintState = "Future" | "Active" | "Done";
@@ -37,6 +37,14 @@ export class Sprint {
     this.state = params.state;
     this.startDateTime = params.startDateTime;
     this.endDateTime = params.endDateTime;
+  }
+
+  static create(params: Omit<SprintParams, "id" | "state">): Sprint {
+    return new Sprint({
+      ...params,
+      id: SprintId.generate(),
+      state: "Future",
+    });
   }
 
   static of(params: SprintParams): Sprint {
