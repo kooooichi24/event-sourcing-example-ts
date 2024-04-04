@@ -26,8 +26,8 @@ export class SprintGoal {
 		}
 	}
 
-	equals(anotherSprintGoal: SprintGoal): boolean {
-		return this.value === anotherSprintGoal.value;
+	equals(other: SprintGoal): boolean {
+		return this.value === other.value;
 	}
 
 	toJSON() {

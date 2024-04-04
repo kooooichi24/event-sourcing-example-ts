@@ -45,7 +45,7 @@ export class MemberId {
 		return `${MemberId.name}(${this.value})`;
 	}
 
-	equals(anotherId: MemberId): boolean {
-		return this.value === anotherId.value;
+	equals(other: MemberId): boolean {
+		return this.value === other.value;
 	}
 }

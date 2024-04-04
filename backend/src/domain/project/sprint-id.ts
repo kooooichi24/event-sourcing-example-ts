@@ -45,7 +45,7 @@ export class SprintId {
 		return `${SprintId.name}(${this.value})`;
 	}
 
-	equals(anotherId: SprintId): boolean {
-		return this.value === anotherId.value;
+	equals(other: SprintId): boolean {
+		return this.value === other.value;
 	}
 }
