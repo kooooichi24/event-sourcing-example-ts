@@ -1,4 +1,3 @@
-import * as E from "fp-ts/Either";
 import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 
 export const MemberIdTypeSymbol = Symbol("MemberId");
