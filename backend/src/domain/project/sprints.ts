@@ -41,6 +41,9 @@ export class Sprints {
   }
 
   add(sprint: Sprint): Sprints {
+    if (this.containsById(sprint.id)) {
+      throw new Error("Sprint already exists");
+    }
     return new Sprints(new Map(this.values).set(sprint.id.value, sprint));
   }
 
@@ -48,7 +51,6 @@ export class Sprints {
     if (!this.containsById(sprint.id)) {
       throw new Error("Sprint not found");
     }
-
     return new Sprints(new Map(this.values).set(sprint.id.value, sprint));
   }
 
