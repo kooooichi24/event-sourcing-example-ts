@@ -36,7 +36,7 @@
     "@as-integrations/aws-lambda": "^3.1.0",
     "dayjs": "^1.11.10",
     "email-validator": "^2.0.4",
-    "event-store-adapter-js": "^2.1.30",
+    "event-store-adapter-js": "^2.1.31",
     "fp-ts": "^2.16.5",
     "graphql": "^16.8.1",
     "is-valid-domain": "^0.1.6",
