@@ -19,7 +19,6 @@ export class SprintName {
 		return new SprintName(value);
 	}
 
-
 	static validate(value: string): E.Either<string, SprintName> {
 		try {
 			return E.right(SprintName.of(value));
