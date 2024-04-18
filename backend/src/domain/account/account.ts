@@ -1,6 +1,6 @@
 import type { Aggregate } from "event-store-adapter-js";
 import { AccountCreated } from "./account-events";
-import type { AccountId } from "./account-id";
+import { AccountId } from "./account-id";
 import type { AccountName } from "./account-name";
 
 export type AccountRole = "Admin" | "Normal";
@@ -34,10 +34,10 @@ export class Account implements Aggregate<Account, AccountId> {
 	}
 
 	static create(
-		id: AccountId,
 		name: AccountName,
 		role: AccountRole,
 	): [Account, AccountCreated] {
+		const id = AccountId.generate();
 		const sequenceNumber = 1;
 		const version = 1;
 
