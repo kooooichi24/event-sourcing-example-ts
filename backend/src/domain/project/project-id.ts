@@ -1,4 +1,4 @@
-import { AggregateId } from "event-store-adapter-js";
+import type { AggregateId } from "event-store-adapter-js";
 import * as E from "fp-ts/Either";
 import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 
@@ -7,7 +7,7 @@ export const ProjectIdTypeSymbol = Symbol("ProjectId");
 
 export class ProjectId implements AggregateId {
 	readonly symbol: typeof ProjectIdTypeSymbol = ProjectIdTypeSymbol;
-	readonly typeName = PROJECT_PREFIX
+	readonly typeName = PROJECT_PREFIX;
 
 	private constructor(readonly value: string) {
 		if (!uuidValidate(value)) {
