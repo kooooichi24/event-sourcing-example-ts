@@ -19,7 +19,6 @@ export class ProjectName {
 		return new ProjectName(value);
 	}
 
-
 	static validate(value: string): E.Either<string, ProjectName> {
 		try {
 			return E.right(ProjectName.of(value));
