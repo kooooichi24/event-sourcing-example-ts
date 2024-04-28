@@ -195,6 +195,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 			}
 			case ProjectMemberRoleChangedTypeSymbol: {
 				const typedEvent = event as ProjectMemberRoleChanged;
+				const result = this.changeMemberRole(
+					typedEvent.accountId,
+					typedEvent.memberRole,
+				);
+				if (E.isLeft(result)) {
+					throw new Error(result.left);
+				}
+				return result.right[0];
 			}
 			case ProjectCreatedTypeSymbol: {
 				throw new Error("ProjectCreated event should not be applied");
