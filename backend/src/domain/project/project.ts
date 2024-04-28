@@ -94,6 +94,30 @@ export class Project implements Aggregate<Project, ProjectId> {
     return E.right([newProject, event]);
   }
 
+  private applyEvent(event: ProjectEvent): Project {
+    switch (event.symbol) {
+      case ProjectSprintAddedTypeSymbol: {
+        const typedEvent = event as ProjectSprintAdded;
+        const result = this.addSprint(typedEvent.sprint);
+        if (E.isLeft(result)) {
+          throw new Error(result.left);
+        }
+        return result.right[0];
+      }
+      case ProjectMemberAddedTypeSymbol: {
+        const typedEvent = event as ProjectMemberAdded;
+        const result = this.addMember(typedEvent.member);
+        if (E.isLeft(result)) {
+          throw new Error(result.left);
+        }
+        return result.right[0];
+      }
+      case ProjectCreatedTypeSymbol: {
+        throw new Error("ProjectCreated event should not be applied");
+      }
+    }
+  }
+
   withVersion(version: number): Project {
     return new Project({ ...this, version });
   }
