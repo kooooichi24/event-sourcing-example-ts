@@ -10,6 +10,7 @@ import type { Sprint } from "../sprint";
 type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
 	| typeof ProjectSprintAddedTypeSymbol
+	| typeof ProjectSprintEditedTypeSymbol
 	| typeof ProjectMemberAddedTypeSymbol
 	| typeof ProjectMemberRemovedTypeSymbol
 	| typeof ProjectMemberRoleChangedTypeSymbol;
@@ -94,6 +95,45 @@ export class ProjectSprintAdded implements ProjectEvent {
 
 	toString() {
 		return `ProjectSprintAdded(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.sprint.toString()}, ${
+			this.sequenceNumber
+		}, ${this.occurredAt.toISOString()})`;
+	}
+}
+
+/**
+ * ProjectSprintEdited
+ */
+export const ProjectSprintEditedTypeSymbol = Symbol("ProjectSprintEdited");
+export class ProjectSprintEdited implements ProjectEvent {
+	readonly symbol: typeof ProjectSprintEditedTypeSymbol =
+		ProjectSprintEditedTypeSymbol;
+	readonly typeName = "ProjectSprintEdited";
+	readonly isCreated = false;
+
+	private constructor(
+		readonly id: string,
+		readonly aggregateId: ProjectId,
+		readonly sprint: Sprint,
+		readonly sequenceNumber: number,
+		readonly occurredAt: Date,
+	) {}
+
+	static of(
+		aggregateId: ProjectId,
+		sprint: Sprint,
+		sequenceNumber: number,
+	): ProjectSprintEdited {
+		return new ProjectSprintEdited(
+			uuidv4(),
+			aggregateId,
+			sprint,
+			sequenceNumber,
+			new Date(),
+		);
+	}
+
+	toString() {
+		return `ProjectSprintEdited(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.sprint.toString()}, ${
 			this.sequenceNumber
 		}, ${this.occurredAt.toISOString()})`;
 	}

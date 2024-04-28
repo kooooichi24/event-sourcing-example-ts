@@ -46,11 +46,12 @@ export class Sprints {
 		return new Sprints(new Map(this.values).set(sprint.id.value, sprint));
 	}
 
-	edit(sprint: Sprint): Sprints {
-		if (!this.containsById(sprint.id)) {
-			throw new Error("Sprint not found");
-		}
-		return new Sprints(new Map(this.values).set(sprint.id.value, sprint));
+	edit(sprint: Sprint): O.Option<[Sprints, Sprint]> {
+		if (!this.containsById(sprint.id)) return O.none;
+
+		const newMap = new Map(this.values);
+		newMap.set(sprint.id.value, sprint);
+		return O.some([new Sprints(newMap), sprint]);
 	}
 
 	findById(sprintId: SprintId): O.Option<Sprint> {
