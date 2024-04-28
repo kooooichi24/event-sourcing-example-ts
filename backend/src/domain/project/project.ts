@@ -106,7 +106,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 		if (O.isNone(newSprintsOpt)) {
 			throw new Error("The sprint does not exist in the project.");
 		}
-		const newSprints = newSprintsOpt.value[0];
+		const [ newSprints, _editedSprint] = newSprintsOpt.value;
 
 		const newSequenceNumber = this.sequenceNumber + 1;
 		const newProject = new Project({
