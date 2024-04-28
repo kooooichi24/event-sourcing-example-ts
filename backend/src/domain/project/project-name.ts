@@ -11,7 +11,7 @@ export class ProjectName {
 		}
 
 		if (this.value.length > 80) {
-			throw new Error("SprintName cannot be longer than 80 characters");
+			throw new Error("ProjectName cannot be longer than 80 characters");
 		}
 	}
 
