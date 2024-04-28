@@ -14,6 +14,8 @@ import {
 	ProjectMemberRoleChangedTypeSymbol,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
+	ProjectSprintEdited,
+	ProjectSprintEditedTypeSymbol,
 } from "./events/project-events";
 import type { Member, MemberRole } from "./member";
 import { Members } from "./members";
@@ -96,6 +98,18 @@ export class Project implements Aggregate<Project, ProjectId> {
 			sequenceNumber: newSequenceNumber,
 		});
 		const event = ProjectSprintAdded.of(this.id, sprint, newSequenceNumber);
+		return E.right([newProject, event]);
+	}
+
+	editSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintEdited]> {
+		const newSprints = this.sprints.edit(sprint);
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			sprints: newSprints,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectSprintEdited.of(this.id, sprint, newSequenceNumber);
 		return E.right([newProject, event]);
 	}
 
@@ -184,6 +198,9 @@ export class Project implements Aggregate<Project, ProjectId> {
 					throw new Error(result.left);
 				}
 				return result.right[0];
+			}
+			case ProjectSprintEditedTypeSymbol: {
+				throw new Error("not implemented");
 			}
 			case ProjectMemberRemovedTypeSymbol: {
 				const typedEvent = event as ProjectMemberRemoved;
