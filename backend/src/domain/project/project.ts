@@ -109,7 +109,9 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
-	removeMember(accountId: AccountId): E.Either<never, [Project, ProjectMemberRemoved]> {
+	removeMember(
+		accountId: AccountId,
+	): E.Either<never, [Project, ProjectMemberRemoved]> {
 		if (!this.members.containsByAccountId(accountId)) {
 			throw new Error("The userAccountId is not the member of the project.");
 		}
@@ -126,7 +128,11 @@ export class Project implements Aggregate<Project, ProjectId> {
 			members: newMembers,
 			sequenceNumber: newSequenceNumber,
 		});
-		const event = ProjectMemberRemoved.of(this.id, accountId, newSequenceNumber);
+		const event = ProjectMemberRemoved.of(
+			this.id,
+			accountId,
+			newSequenceNumber,
+		);
 		return E.right([newProject, event]);
 	}
 

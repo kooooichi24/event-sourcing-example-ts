@@ -1,11 +1,11 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
+import type { AccountId } from "../../account/account-id";
 import type { Member } from "../member";
 import type { Members } from "../members";
 import type { ProjectId } from "../project-id";
 import type { ProjectName } from "../project-name";
 import type { Sprint } from "../sprint";
-import { AccountId } from "../../account/account-id";
 
 type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
