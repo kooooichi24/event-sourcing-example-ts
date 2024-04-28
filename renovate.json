@@ -18,5 +18,6 @@
     }
   ],
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 5
+  "prConcurrentLimit": 5,
+  "schedule": ["every monday at 2am"]
 }
