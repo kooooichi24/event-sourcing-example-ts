@@ -1,5 +1,6 @@
 import type { Aggregate } from "event-store-adapter-js";
 import * as E from "fp-ts/lib/Either";
+import * as O from "fp-ts/lib/Option";
 import type { AccountId } from "../account/account-id";
 import {
 	ProjectCreated,
@@ -7,6 +8,7 @@ import {
 	type ProjectEvent,
 	ProjectMemberAdded,
 	ProjectMemberAddedTypeSymbol,
+	ProjectMemberRemoved,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
 } from "./events/project-events";
@@ -103,6 +105,27 @@ export class Project implements Aggregate<Project, ProjectId> {
 			sequenceNumber: newSequenceNumber,
 		});
 		const event = ProjectMemberAdded.of(this.id, member, newSequenceNumber);
+		return E.right([newProject, event]);
+	}
+
+	removeMember(accountId: AccountId): E.Either<never, [Project, ProjectMemberRemoved]> {
+		if (!this.members.containsByAccountId(accountId)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+
+		const newMembersOpt = this.members.removeMemberByAccountId(accountId);
+		if (O.isNone(newMembersOpt)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+		const [newMembers, _removedMember] = newMembersOpt.value;
+
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			members: newMembers,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectMemberRemoved.of(this.id, accountId, newSequenceNumber);
 		return E.right([newProject, event]);
 	}
 
