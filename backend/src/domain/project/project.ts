@@ -70,7 +70,7 @@ export class Project implements Aggregate<Project, ProjectId> {
     return new Project(params);
   }
 
-  addSprint(sprint: Sprint): [Project, ProjectSprintAdded] {
+  addSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintAdded]> {
     const newSprints = this.sprints.add(sprint);
     const newSequenceNumber = this.sequenceNumber + 1;
     const newProject = new Project({
@@ -79,7 +79,7 @@ export class Project implements Aggregate<Project, ProjectId> {
       sequenceNumber: newSequenceNumber,
     });
     const event = ProjectSprintAdded.of(this.id, sprint, newSequenceNumber);
-    return [newProject, event];
+    return E.right([newProject, event]);
   }
 
   addMember(member: Member): [Project, ProjectMemberAdded] {
