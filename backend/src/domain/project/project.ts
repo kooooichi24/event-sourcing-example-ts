@@ -1,6 +1,6 @@
 import type { Aggregate } from "event-store-adapter-js";
 import type { AccountId } from "../account/account-id";
-import { ProjectCreated, ProjectSprintAdded } from "./events/project-events";
+import { ProjectCreated, ProjectMemberAdded, ProjectSprintAdded } from "./events/project-events";
 import { Members } from "./members";
 import { ProjectId } from "./project-id";
 import type { ProjectName } from "./project-name";
@@ -74,6 +74,18 @@ export class Project implements Aggregate<Project, ProjectId> {
       sequenceNumber: newSequenceNumber,
     });
     const event = ProjectSprintAdded.of(this.id, sprint, newSequenceNumber);
+    return [newProject, event];
+  }
+
+  addMember(member: Member): [Project, ProjectMemberAdded] {
+    const newMembers = this.members.addMember(member);
+    const newSequenceNumber = this.sequenceNumber + 1;
+    const newProject = new Project({
+      ...this,
+      members: newMembers,
+      sequenceNumber: newSequenceNumber,
+    });
+    const event = ProjectMemberAdded.of(this.id, member, newSequenceNumber);
     return [newProject, event];
   }
 
