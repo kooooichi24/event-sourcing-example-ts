@@ -11,7 +11,7 @@ type ProjectEventTypeSymbol =
   | typeof ProjectSprintAddedTypeSymbol
   | typeof ProjectMemberAddedTypeSymbol;
 
-interface ProjectEvent extends Event<ProjectId> {
+export interface ProjectEvent extends Event<ProjectId> {
   symbol: ProjectEventTypeSymbol;
   toString: () => string;
 }
