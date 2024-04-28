@@ -10,10 +10,12 @@ import {
 	ProjectMemberAddedTypeSymbol,
 	ProjectMemberRemoved,
 	ProjectMemberRemovedTypeSymbol,
+	ProjectMemberRoleChanged,
+	ProjectMemberRoleChangedTypeSymbol,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
 } from "./events/project-events";
-import type { Member } from "./member";
+import type { Member, MemberRole } from "./member";
 import { Members } from "./members";
 import { ProjectId } from "./project-id";
 import type { ProjectName } from "./project-name";
@@ -136,6 +138,35 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
+	changeMemberRole(
+		accountId: AccountId,
+		memberRole: MemberRole,
+	): E.Either<never, [Project, ProjectMemberRoleChanged]> {
+		if (!this.members.containsByAccountId(accountId)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+
+		const newMembersOpt = this.members.changeRole(accountId, memberRole);
+		if (O.isNone(newMembersOpt)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+
+		const [newMembers, _changedMember] = newMembersOpt.value;
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			members: newMembers,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectMemberRoleChanged.of(
+			this.id,
+			accountId,
+			memberRole,
+			newSequenceNumber,
+		);
+		return E.right([newProject, event]);
+	}
+
 	private applyEvent(event: ProjectEvent): Project {
 		switch (event.symbol) {
 			case ProjectSprintAddedTypeSymbol: {
@@ -161,6 +192,9 @@ export class Project implements Aggregate<Project, ProjectId> {
 					throw new Error(result.left);
 				}
 				return result.right[0];
+			}
+			case ProjectMemberRoleChangedTypeSymbol: {
+				const typedEvent = event as ProjectMemberRoleChanged;
 			}
 			case ProjectCreatedTypeSymbol: {
 				throw new Error("ProjectCreated event should not be applied");
