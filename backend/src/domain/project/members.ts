@@ -1,6 +1,6 @@
 import * as O from "fp-ts/lib/Option";
 import { AccountId } from "../account/account-id";
-import { Member } from "./member";
+import { Member, type MemberRole } from "./member";
 import { MemberId } from "./member-id";
 
 const MembersTypeSymbol = Symbol("Members");
@@ -65,6 +65,20 @@ export class Members {
 		const newMap = new Map(this.values);
 		newMap.delete(accountId.value);
 		return O.some([new Members(newMap), member]);
+	}
+
+	changeRole(
+		accountId: AccountId,
+		role: MemberRole,
+	): O.Option<[Members, Member]> {
+		const member = this.values.get(accountId.value);
+		if (member === undefined) return O.none;
+
+		const newMember = member.withRole(role);
+		return O.some([
+			new Members(new Map(this.values).set(accountId.value, newMember)),
+			newMember,
+		]);
 	}
 
 	findById(memberId: MemberId): Member | undefined {
