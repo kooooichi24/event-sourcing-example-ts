@@ -1,5 +1,6 @@
 import type { Aggregate } from "event-store-adapter-js";
 import * as E from "fp-ts/lib/Either";
+import * as O from "fp-ts/lib/Option";
 import type { AccountId } from "../account/account-id";
 import {
 	ProjectCreated,
@@ -7,6 +8,8 @@ import {
 	type ProjectEvent,
 	ProjectMemberAdded,
 	ProjectMemberAddedTypeSymbol,
+	ProjectMemberRemoved,
+	ProjectMemberRemovedTypeSymbol,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
 } from "./events/project-events";
@@ -106,6 +109,33 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
+	removeMember(
+		accountId: AccountId,
+	): E.Either<never, [Project, ProjectMemberRemoved]> {
+		if (!this.members.containsByAccountId(accountId)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+
+		const newMembersOpt = this.members.removeMemberByAccountId(accountId);
+		if (O.isNone(newMembersOpt)) {
+			throw new Error("The userAccountId is not the member of the project.");
+		}
+		const [newMembers, _removedMember] = newMembersOpt.value;
+
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			members: newMembers,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectMemberRemoved.of(
+			this.id,
+			accountId,
+			newSequenceNumber,
+		);
+		return E.right([newProject, event]);
+	}
+
 	private applyEvent(event: ProjectEvent): Project {
 		switch (event.symbol) {
 			case ProjectSprintAddedTypeSymbol: {
@@ -119,6 +149,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 			case ProjectMemberAddedTypeSymbol: {
 				const typedEvent = event as ProjectMemberAdded;
 				const result = this.addMember(typedEvent.member);
+				if (E.isLeft(result)) {
+					throw new Error(result.left);
+				}
+				return result.right[0];
+			}
+			case ProjectMemberRemovedTypeSymbol: {
+				const typedEvent = event as ProjectMemberRemoved;
+				const result = this.removeMember(typedEvent.accountId);
 				if (E.isLeft(result)) {
 					throw new Error(result.left);
 				}

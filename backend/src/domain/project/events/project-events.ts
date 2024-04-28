@@ -1,5 +1,6 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
+import type { AccountId } from "../../account/account-id";
 import type { Member } from "../member";
 import type { Members } from "../members";
 import type { ProjectId } from "../project-id";
@@ -9,7 +10,8 @@ import type { Sprint } from "../sprint";
 type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
 	| typeof ProjectSprintAddedTypeSymbol
-	| typeof ProjectMemberAddedTypeSymbol;
+	| typeof ProjectMemberAddedTypeSymbol
+	| typeof ProjectMemberRemovedTypeSymbol;
 
 export interface ProjectEvent extends Event<ProjectId> {
 	symbol: ProjectEventTypeSymbol;
@@ -130,6 +132,45 @@ export class ProjectMemberAdded implements ProjectEvent {
 
 	toString() {
 		return `ProjectMemberAdded(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.member.toString()}, ${
+			this.sequenceNumber
+		}, ${this.occurredAt.toISOString()})`;
+	}
+}
+
+/**
+ * ProjectMemberRemoved
+ */
+export const ProjectMemberRemovedTypeSymbol = Symbol("ProjectMemberRemoved");
+export class ProjectMemberRemoved implements ProjectEvent {
+	readonly symbol: typeof ProjectMemberRemovedTypeSymbol =
+		ProjectMemberRemovedTypeSymbol;
+	readonly typeName = "ProjectMemberRemoved";
+	readonly isCreated = false;
+
+	private constructor(
+		readonly id: string,
+		readonly aggregateId: ProjectId,
+		readonly accountId: AccountId,
+		readonly sequenceNumber: number,
+		readonly occurredAt: Date,
+	) {}
+
+	static of(
+		aggregateId: ProjectId,
+		accountId: AccountId,
+		sequenceNumber: number,
+	): ProjectMemberRemoved {
+		return new ProjectMemberRemoved(
+			uuidv4(),
+			aggregateId,
+			accountId,
+			sequenceNumber,
+			new Date(),
+		);
+	}
+
+	toString() {
+		return `ProjectMemberRemoved(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.accountId.toString()}, ${
 			this.sequenceNumber
 		}, ${this.occurredAt.toISOString()})`;
 	}
