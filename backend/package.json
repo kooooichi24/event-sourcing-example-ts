@@ -16,9 +16,9 @@
     "lint:ci": "tsc --noEmit && biome ci ./src"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.6.4",
+    "@biomejs/biome": "^1.7.1",
     "@faker-js/faker": "^8.4.1",
-    "@swc/core": "^1.4.12",
+    "@swc/core": "^1.5.0",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.30",
@@ -28,15 +28,15 @@
     "serverless": "^3.38.0",
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-esbuild": "^1.52.1",
-    "serverless-offline": "^13.3.3",
-    "typescript": "^5.4.3"
+    "serverless-offline": "^13.4.0",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@apollo/server": "^4.10.2",
+    "@apollo/server": "^4.10.4",
     "@as-integrations/aws-lambda": "^3.1.0",
     "dayjs": "^1.11.10",
     "email-validator": "^2.0.4",
-    "event-store-adapter-js": "^2.1.30",
+    "event-store-adapter-js": "^2.1.32",
     "fp-ts": "^2.16.5",
     "graphql": "^16.8.1",
     "is-valid-domain": "^0.1.6",
