@@ -9,6 +9,7 @@ import {
 	ProjectMemberAdded,
 	ProjectMemberAddedTypeSymbol,
 	ProjectMemberRemoved,
+	ProjectMemberRemovedTypeSymbol,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
 } from "./events/project-events";
@@ -142,6 +143,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 			case ProjectMemberAddedTypeSymbol: {
 				const typedEvent = event as ProjectMemberAdded;
 				const result = this.addMember(typedEvent.member);
+				if (E.isLeft(result)) {
+					throw new Error(result.left);
+				}
+				return result.right[0];
+			}
+			case ProjectMemberRemovedTypeSymbol: {
+				const typedEvent = event as ProjectMemberRemoved;
+				const result = this.removeMember(typedEvent.accountId);
 				if (E.isLeft(result)) {
 					throw new Error(result.left);
 				}
