@@ -1,9 +1,14 @@
+import * as E from "fp-ts/lib/Either";
 import type { Aggregate } from "event-store-adapter-js";
 import type { AccountId } from "../account/account-id";
 import {
   ProjectCreated,
+  ProjectCreatedTypeSymbol,
+  ProjectEvent,
   ProjectMemberAdded,
+  ProjectMemberAddedTypeSymbol,
   ProjectSprintAdded,
+  ProjectSprintAddedTypeSymbol,
 } from "./events/project-events";
 import { Members } from "./members";
 import { ProjectId } from "./project-id";
