@@ -82,7 +82,7 @@ export class Project implements Aggregate<Project, ProjectId> {
     return E.right([newProject, event]);
   }
 
-  addMember(member: Member): [Project, ProjectMemberAdded] {
+  addMember(member: Member): E.Either<never, [Project, ProjectMemberAdded]> {
     const newMembers = this.members.addMember(member);
     const newSequenceNumber = this.sequenceNumber + 1;
     const newProject = new Project({
@@ -91,7 +91,7 @@ export class Project implements Aggregate<Project, ProjectId> {
       sequenceNumber: newSequenceNumber,
     });
     const event = ProjectMemberAdded.of(this.id, member, newSequenceNumber);
-    return [newProject, event];
+    return E.right([newProject, event]);
   }
 
   withVersion(version: number): Project {
