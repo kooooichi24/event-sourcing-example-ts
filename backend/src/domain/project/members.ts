@@ -60,9 +60,8 @@ export class Members {
 
 	removeMemberByAccountId(accountId: AccountId): O.Option<[Members, Member]> {
 		const member = this.values.get(accountId.value);
-		if (member === undefined) {
-			return O.none;
-		}
+		if (member === undefined) return O.none;
+
 		const newMap = new Map(this.values);
 		newMap.delete(accountId.value);
 		return O.some([new Members(newMap), member]);
