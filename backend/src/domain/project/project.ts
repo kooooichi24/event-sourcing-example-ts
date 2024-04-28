@@ -1,11 +1,16 @@
 import type { Aggregate } from "event-store-adapter-js";
 import type { AccountId } from "../account/account-id";
-import { ProjectCreated, ProjectMemberAdded, ProjectSprintAdded } from "./events/project-events";
+import {
+  ProjectCreated,
+  ProjectMemberAdded,
+  ProjectSprintAdded,
+} from "./events/project-events";
 import { Members } from "./members";
 import { ProjectId } from "./project-id";
 import type { ProjectName } from "./project-name";
 import { Sprint } from "./sprint";
 import { Sprints } from "./sprints";
+import { Member } from "./member";
 
 export const ProjectTypeSymbol = Symbol("Project");
 
