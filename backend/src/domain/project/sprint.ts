@@ -1,4 +1,5 @@
 import type dayjs from "dayjs";
+import * as E from "fp-ts/Either";
 import type { SprintGoal } from "./sprint-goal";
 import { SprintId } from "./sprint-id";
 import type { SprintName } from "./sprint-name";
@@ -49,6 +50,17 @@ export class Sprint {
 
 	static of(params: SprintParams): Sprint {
 		return new Sprint(params);
+	}
+
+	static validate(params: SprintParams): E.Either<string, Sprint> {
+		try {
+			return E.right(new Sprint(params));
+		} catch (e) {
+			if (e instanceof Error) {
+				return E.left(e.message);
+			}
+			throw e;
+		}
 	}
 
 	withName(name: SprintName): Sprint {
