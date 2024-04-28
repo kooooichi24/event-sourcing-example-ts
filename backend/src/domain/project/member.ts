@@ -1,7 +1,7 @@
 import type { AccountId } from "../account/account-id";
 import type { MemberId } from "./member-id";
 
-type MemberRole = "Lead" | "Admin" | "Normal" | "Readonly";
+export type MemberRole = "Lead" | "Admin" | "Normal" | "Readonly";
 
 const MemberTypeSymbol = Symbol("Member");
 

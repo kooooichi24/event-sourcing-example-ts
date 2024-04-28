@@ -1,7 +1,7 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
 import type { AccountId } from "../../account/account-id";
-import type { Member } from "../member";
+import type { Member, MemberRole } from "../member";
 import type { Members } from "../members";
 import type { ProjectId } from "../project-id";
 import type { ProjectName } from "../project-name";
@@ -11,7 +11,8 @@ type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
 	| typeof ProjectSprintAddedTypeSymbol
 	| typeof ProjectMemberAddedTypeSymbol
-	| typeof ProjectMemberRemovedTypeSymbol;
+	| typeof ProjectMemberRemovedTypeSymbol
+	| typeof ProjectMemberRoleChangedTypeSymbol;
 
 export interface ProjectEvent extends Event<ProjectId> {
 	symbol: ProjectEventTypeSymbol;
@@ -173,5 +174,43 @@ export class ProjectMemberRemoved implements ProjectEvent {
 		return `ProjectMemberRemoved(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.accountId.toString()}, ${
 			this.sequenceNumber
 		}, ${this.occurredAt.toISOString()})`;
+	}
+}
+
+/**
+ * ProjectMemberRoleChanged
+ */
+export const ProjectMemberRoleChangedTypeSymbol = Symbol(
+	"ProjectMemberRoleChanged",
+);
+export class ProjectMemberRoleChanged implements ProjectEvent {
+	readonly symbol: typeof ProjectMemberRoleChangedTypeSymbol =
+		ProjectMemberRoleChangedTypeSymbol;
+	readonly typeName = "ProjectMemberRoleChanged";
+	readonly isCreated = false;
+
+	private constructor(
+		readonly id: string,
+		readonly aggregateId: ProjectId,
+		readonly accountId: AccountId,
+		readonly memberRole: MemberRole,
+		readonly sequenceNumber: number,
+		readonly occurredAt: Date,
+	) {}
+
+	static of(
+		aggregateId: ProjectId,
+		accountId: AccountId,
+		memberRole: MemberRole,
+		sequenceNumber: number,
+	): ProjectMemberRoleChanged {
+		return new ProjectMemberRoleChanged(
+			uuidv4(),
+			aggregateId,
+			accountId,
+			memberRole,
+			sequenceNumber,
+			new Date(),
+		);
 	}
 }
