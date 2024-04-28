@@ -85,8 +85,8 @@ export class Members {
 		return Array.from(this.values.values()).find((m) => m.id.equals(memberId));
 	}
 
-	findByAccountId(accountId: AccountId): Member | undefined {
-		return this.values.get(accountId.value);
+	findByAccountId(accountId: AccountId): O.Option<Member> {
+		return O.fromNullable(this.values.get(accountId.value));
 	}
 
 	containsByAccountId(accountId: AccountId): boolean {
