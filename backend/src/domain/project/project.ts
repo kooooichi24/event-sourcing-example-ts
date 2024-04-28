@@ -70,6 +70,13 @@ export class Project implements Aggregate<Project, ProjectId> {
     return new Project(params);
   }
 
+  static replay(events: ProjectEvent[], snapshot: Project): Project {
+    return events.reduce(
+      (project, event) => project.applyEvent(event),
+      snapshot
+    );
+  }
+
   addSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintAdded]> {
     const newSprints = this.sprints.add(sprint);
     const newSequenceNumber = this.sequenceNumber + 1;
