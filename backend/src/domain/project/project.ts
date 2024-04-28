@@ -200,7 +200,12 @@ export class Project implements Aggregate<Project, ProjectId> {
 				return result.right[0];
 			}
 			case ProjectSprintEditedTypeSymbol: {
-				throw new Error("not implemented");
+				const typedEvent = event as ProjectSprintEdited;
+				const result = this.editSprint(typedEvent.sprint);
+				if (E.isLeft(result)) {
+					throw new Error(result.left);
+				}
+				return result.right[0];
 			}
 			case ProjectMemberRemovedTypeSymbol: {
 				const typedEvent = event as ProjectMemberRemoved;
