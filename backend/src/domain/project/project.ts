@@ -102,7 +102,12 @@ export class Project implements Aggregate<Project, ProjectId> {
 	}
 
 	editSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintEdited]> {
-		const newSprints = this.sprints.edit(sprint);
+		const newSprintsOpt = this.sprints.edit(sprint);
+		if (O.isNone(newSprintsOpt)) {
+			throw new Error("The sprint does not exist in the project.");
+		}
+		const newSprints = newSprintsOpt.value[0];
+
 		const newSequenceNumber = this.sequenceNumber + 1;
 		const newProject = new Project({
 			...this,
