@@ -81,8 +81,10 @@ export class Members {
 		]);
 	}
 
-	findById(memberId: MemberId): Member | undefined {
-		return Array.from(this.values.values()).find((m) => m.id.equals(memberId));
+	findById(memberId: MemberId): O.Option<Member> {
+		return O.fromNullable(
+			Array.from(this.values.values()).find((m) => m.id.equals(memberId)),
+		);
 	}
 
 	findByAccountId(accountId: AccountId): O.Option<Member> {
