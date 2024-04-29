@@ -54,6 +54,32 @@ export class Sprints {
 		return O.some([new Sprints(newMap), sprint]);
 	}
 
+	start(
+		sprintId: SprintId,
+	): O.Option<[Sprints, Sprint]> {
+		const sprintOpt = this.findById(sprintId);
+		if (O.isNone(sprintOpt)) return O.none;
+		const sprint = sprintOpt.value;
+
+		const newSprint = sprint.withActive();
+		const newMap = new Map(this.values);
+		newMap.set(sprintId.value, newSprint);
+		return O.some([new Sprints(newMap), newSprint]);
+	}
+
+	done(
+		sprintId: SprintId,
+	): O.Option<[Sprints, Sprint]> {
+		const sprintOpt = this.findById(sprintId);
+		if (O.isNone(sprintOpt)) return O.none;
+		const sprint = sprintOpt.value;
+
+		const newSprint = sprint.withDone();
+		const newMap = new Map(this.values);
+		newMap.set(sprintId.value, newSprint);
+		return O.some([new Sprints(newMap), newSprint]);
+	}
+
 	findById(sprintId: SprintId): O.Option<Sprint> {
 		return O.fromNullable(this.values.get(sprintId.value));
 	}
