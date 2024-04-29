@@ -83,7 +83,7 @@ export class Sprints {
 			return false;
 		}
 		for (const [key, value] of values) {
-			const otherValue = this.values.get(key);
+			const otherValue = other.toMap().get(key);
 			if (otherValue === undefined || !value.equals(otherValue)) {
 				return false;
 			}
