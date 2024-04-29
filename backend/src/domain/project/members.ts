@@ -1,5 +1,5 @@
 import * as O from "fp-ts/lib/Option";
-import { AccountId } from "../account/account-id";
+import type { AccountId } from "../account/account-id";
 import { Member, type MemberRole } from "./member";
 import { MemberId } from "./member-id";
 
@@ -8,7 +8,7 @@ const MembersTypeSymbol = Symbol("Members");
 export class Members {
 	readonly symbol: typeof MembersTypeSymbol = MembersTypeSymbol;
 
-	private constructor(readonly values: Map<string, Member>) {
+	private constructor(readonly values: Map<AccountId, Member>) {
 		if (values.size === 0) {
 			throw new Error("Members must not be empty");
 		}
@@ -26,7 +26,7 @@ export class Members {
 		return new Members(
 			new Map([
 				[
-					accountId.value,
+					accountId,
 					Member.of({
 						id: MemberId.generate(),
 						accountId,
@@ -38,32 +38,23 @@ export class Members {
 	}
 
 	static fromMap(values: Map<AccountId, Member>): Members {
-		return new Members(
-			new Map(
-				Array.from(values.entries()).map(([accountId, member]) => [
-					accountId.value,
-					member,
-				]),
-			),
-		);
+		return new Members(values);
 	}
 
 	static fromArray(values: Member[]): Members {
-		return new Members(new Map(values.map((m) => [m.accountId.value, m])));
+		return new Members(new Map(values.map((m) => [m.accountId, m])));
 	}
 
 	addMember(member: Member): Members {
-		return new Members(
-			new Map(this.values).set(member.accountId.value, member),
-		);
+		return new Members(new Map(this.values).set(member.accountId, member));
 	}
 
 	removeMemberByAccountId(accountId: AccountId): O.Option<[Members, Member]> {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		if (member === undefined) return O.none;
 
 		const newMap = new Map(this.values);
-		newMap.delete(accountId.value);
+		newMap.delete(accountId);
 		return O.some([new Members(newMap), member]);
 	}
 
@@ -71,12 +62,12 @@ export class Members {
 		accountId: AccountId,
 		role: MemberRole,
 	): O.Option<[Members, Member]> {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		if (member === undefined) return O.none;
 
 		const newMember = member.withRole(role);
 		return O.some([
-			new Members(new Map(this.values).set(accountId.value, newMember)),
+			new Members(new Map(this.values).set(accountId, newMember)),
 			newMember,
 		]);
 	}
@@ -88,40 +79,41 @@ export class Members {
 	}
 
 	findByAccountId(accountId: AccountId): O.Option<Member> {
-		return O.fromNullable(this.values.get(accountId.value));
+		return O.fromNullable(this.values.get(accountId));
 	}
 
 	containsByAccountId(accountId: AccountId): boolean {
-		return this.values.has(accountId.value);
+		return this.values.has(accountId);
 	}
 
 	isLead(accountId: AccountId): boolean {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		return member?.isLead() ?? false;
 	}
 
 	isAdmin(accountId: AccountId): boolean {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		return member?.isAdmin() ?? false;
 	}
 
 	isNormal(accountId: AccountId): boolean {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		return member?.isNormal() ?? false;
 	}
 
 	isReadonly(accountId: AccountId): boolean {
-		const member = this.values.get(accountId.value);
+		const member = this.values.get(accountId);
 		return member?.isReadonly() ?? false;
 	}
 
 	equals(other: Members): boolean {
 		const values = this.toMap();
-		if (values.size !== other.values.size) {
+		const otherValues = other.toMap();
+		if (values.size !== otherValues.size) {
 			return false;
 		}
 		for (const [key, value] of values) {
-			const otherValue = this.values.get(key.value);
+			const otherValue = otherValues.get(key);
 			if (otherValue === undefined || !value.equals(otherValue)) {
 				return false;
 			}
@@ -134,12 +126,7 @@ export class Members {
 	}
 
 	toMap(): Map<AccountId, Member> {
-		return new Map(
-			Array.from(this.values.entries()).map(([key, value]) => [
-				AccountId.of(key),
-				value,
-			]),
-		);
+		return this.values;
 	}
 
 	toJSON(): Record<string, unknown> {
