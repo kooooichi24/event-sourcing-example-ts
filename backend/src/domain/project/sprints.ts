@@ -79,11 +79,12 @@ export class Sprints {
 
 	equals(other: Sprints): boolean {
 		const values = this.toMap();
-		if (values.size !== other.values.size) {
+		const otherValues = other.toMap();
+		if (values.size !== otherValues.size) {
 			return false;
 		}
 		for (const [key, value] of values) {
-			const otherValue = other.toMap().get(key);
+			const otherValue = otherValues.get(key);
 			if (otherValue === undefined || !value.equals(otherValue)) {
 				return false;
 			}
