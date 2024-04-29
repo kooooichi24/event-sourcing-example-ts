@@ -54,9 +54,7 @@ export class Sprints {
 		return O.some([new Sprints(newMap), sprint]);
 	}
 
-	start(
-		sprintId: SprintId,
-	): O.Option<[Sprints, Sprint]> {
+	start(sprintId: SprintId): O.Option<[Sprints, Sprint]> {
 		const sprintOpt = this.findById(sprintId);
 		if (O.isNone(sprintOpt)) return O.none;
 		const sprint = sprintOpt.value;
@@ -67,9 +65,7 @@ export class Sprints {
 		return O.some([new Sprints(newMap), newSprint]);
 	}
 
-	done(
-		sprintId: SprintId,
-	): O.Option<[Sprints, Sprint]> {
+	done(sprintId: SprintId): O.Option<[Sprints, Sprint]> {
 		const sprintOpt = this.findById(sprintId);
 		if (O.isNone(sprintOpt)) return O.none;
 		const sprint = sprintOpt.value;
