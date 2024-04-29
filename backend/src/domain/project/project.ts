@@ -14,6 +14,8 @@ import {
 	ProjectMemberRoleChangedTypeSymbol,
 	ProjectSprintAdded,
 	ProjectSprintAddedTypeSymbol,
+	ProjectSprintCompleted,
+	ProjectSprintCompletedTypeSymbol,
 	ProjectSprintEdited,
 	ProjectSprintEditedTypeSymbol,
 	ProjectSprintStarted,
@@ -140,6 +142,29 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
+	completeSprint(
+		sprintId: SprintId,
+	): E.Either<never, [Project, ProjectSprintCompleted]> {
+		const newSprintsOpt = this.sprints.done(sprintId);
+		if (O.isNone(newSprintsOpt)) {
+			throw new Error("The sprint does not exist in the project.");
+		}
+		const [newSprints, _completedSprint] = newSprintsOpt.value;
+
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			sprints: newSprints,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectSprintCompleted.of(
+			this.id,
+			sprintId,
+			newSequenceNumber,
+		);
+		return E.right([newProject, event]);
+	}
+
 	addMember(member: Member): E.Either<never, [Project, ProjectMemberAdded]> {
 		const newMembers = this.members.addMember(member);
 		const newSequenceNumber = this.sequenceNumber + 1;
@@ -237,6 +262,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 			case ProjectSprintStartedTypeSymbol: {
 				const typedEvent = event as ProjectSprintStarted;
 				const result = this.startSprint(typedEvent.sprintId);
+				if (E.isLeft(result)) {
+					throw new Error(result.left);
+				}
+				return result.right[0];
+			}
+			case ProjectSprintCompletedTypeSymbol: {
+				const typedEvent = event as ProjectSprintCompleted;
+				const result = this.completeSprint(typedEvent.sprintId);
 				if (E.isLeft(result)) {
 					throw new Error(result.left);
 				}
