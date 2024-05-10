@@ -16,7 +16,7 @@
     "lint:ci": "tsc --noEmit && biome ci ./src"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.2",
+    "@biomejs/biome": "^1.7.3",
     "@faker-js/faker": "^8.4.1",
     "@swc/core": "^1.5.5",
     "@swc/jest": "^0.2.36",
