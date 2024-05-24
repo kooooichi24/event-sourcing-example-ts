@@ -28,7 +28,7 @@
     "serverless": "^3.38.0",
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-esbuild": "^1.52.1",
-    "serverless-offline": "^13.5.0",
+    "serverless-offline": "^13.6.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
