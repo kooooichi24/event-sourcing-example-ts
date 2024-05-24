@@ -37,7 +37,7 @@
     "dayjs": "^1.11.11",
     "email-validator": "^2.0.4",
     "event-store-adapter-js": "^2.1.32",
-    "fp-ts": "^2.16.5",
+    "fp-ts": "^2.16.6",
     "graphql": "^16.8.1",
     "is-valid-domain": "^0.1.6",
     "uuid": "^9.0.1"
