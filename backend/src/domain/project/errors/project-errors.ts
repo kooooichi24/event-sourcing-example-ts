@@ -1,4 +1,4 @@
-import { DomainError } from "../../shared/domain-error";
+import type { DomainError } from "../../shared/domain-error";
 import type { ProjectId } from "../project-id";
 import type { SprintId } from "../sprint-id";
 
