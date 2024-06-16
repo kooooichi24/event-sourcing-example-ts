@@ -2,6 +2,7 @@ import type { Aggregate } from "event-store-adapter-js";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
 import type { AccountId } from "../account/account-id";
+import { SprintNotExistError } from "./errors/project-errors";
 import {
 	ProjectCreated,
 	ProjectCreatedTypeSymbol,
@@ -106,10 +107,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
-	editSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintEdited]> {
+	editSprint(
+		sprint: Sprint,
+	): E.Either<SprintNotExistError, [Project, ProjectSprintEdited]> {
 		const newSprintsOpt = this.sprints.edit(sprint);
 		if (O.isNone(newSprintsOpt)) {
-			throw new Error("The sprint does not exist in the project.");
+			return E.left(
+				SprintNotExistError.of({ projectId: this.id, sprintId: sprint.id }),
+			);
 		}
 		const [newSprints, _editedSprint] = newSprintsOpt.value;
 
@@ -125,10 +130,10 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	startSprint(
 		sprintId: SprintId,
-	): E.Either<never, [Project, ProjectSprintStarted]> {
+	): E.Either<SprintNotExistError, [Project, ProjectSprintStarted]> {
 		const newSprintsOpt = this.sprints.start(sprintId);
 		if (O.isNone(newSprintsOpt)) {
-			throw new Error("The sprint does not exist in the project.");
+			return E.left(SprintNotExistError.of({ projectId: this.id, sprintId }));
 		}
 		const [newSprints, _startedSprint] = newSprintsOpt.value;
 
@@ -144,10 +149,10 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	completeSprint(
 		sprintId: SprintId,
-	): E.Either<never, [Project, ProjectSprintCompleted]> {
+	): E.Either<SprintNotExistError, [Project, ProjectSprintCompleted]> {
 		const newSprintsOpt = this.sprints.done(sprintId);
 		if (O.isNone(newSprintsOpt)) {
-			throw new Error("The sprint does not exist in the project.");
+			return E.left(SprintNotExistError.of({ projectId: this.id, sprintId }));
 		}
 		const [newSprints, _completedSprint] = newSprintsOpt.value;
 
@@ -255,7 +260,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectSprintEdited;
 				const result = this.editSprint(typedEvent.sprint);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
@@ -263,7 +268,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectSprintStarted;
 				const result = this.startSprint(typedEvent.sprintId);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
@@ -271,7 +276,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectSprintCompleted;
 				const result = this.completeSprint(typedEvent.sprintId);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
