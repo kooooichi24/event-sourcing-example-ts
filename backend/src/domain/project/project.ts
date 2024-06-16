@@ -1,7 +1,7 @@
 import type { Aggregate } from "event-store-adapter-js";
-import { pipe } from "fp-ts/lib/function";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
+import { pipe } from "fp-ts/lib/function";
 import type { AccountId } from "../account/account-id";
 import { SprintNotExistError } from "./errors/project-errors";
 import {
