@@ -1,4 +1,5 @@
 import type { Aggregate } from "event-store-adapter-js";
+import { pipe } from "fp-ts/lib/function";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
 import type { AccountId } from "../account/account-id";
@@ -110,64 +111,79 @@ export class Project implements Aggregate<Project, ProjectId> {
 	editSprint(
 		sprint: Sprint,
 	): E.Either<SprintNotExistError, [Project, ProjectSprintEdited]> {
-		const newSprintsOpt = this.sprints.edit(sprint);
-		if (O.isNone(newSprintsOpt)) {
-			return E.left(
-				SprintNotExistError.of({ projectId: this.id, sprintId: sprint.id }),
-			);
-		}
-		const [newSprints, _editedSprint] = newSprintsOpt.value;
-
-		const newSequenceNumber = this.sequenceNumber + 1;
-		const newProject = new Project({
-			...this,
-			sprints: newSprints,
-			sequenceNumber: newSequenceNumber,
-		});
-		const event = ProjectSprintEdited.of(this.id, sprint, newSequenceNumber);
-		return E.right([newProject, event]);
+		return pipe(
+			this.sprints.edit(sprint),
+			O.fold(
+				() =>
+					E.left(
+						SprintNotExistError.of({ projectId: this.id, sprintId: sprint.id }),
+					),
+				([newSprints, _editedSprint]) => {
+					const newSequenceNumber = this.sequenceNumber + 1;
+					const newProject = new Project({
+						...this,
+						sprints: newSprints,
+						sequenceNumber: newSequenceNumber,
+					});
+					const event = ProjectSprintEdited.of(
+						this.id,
+						sprint,
+						newSequenceNumber,
+					);
+					return E.right([newProject, event]);
+				},
+			),
+		);
 	}
 
 	startSprint(
 		sprintId: SprintId,
 	): E.Either<SprintNotExistError, [Project, ProjectSprintStarted]> {
-		const newSprintsOpt = this.sprints.start(sprintId);
-		if (O.isNone(newSprintsOpt)) {
-			return E.left(SprintNotExistError.of({ projectId: this.id, sprintId }));
-		}
-		const [newSprints, _startedSprint] = newSprintsOpt.value;
-
-		const newSequenceNumber = this.sequenceNumber + 1;
-		const newProject = new Project({
-			...this,
-			sprints: newSprints,
-			sequenceNumber: newSequenceNumber,
-		});
-		const event = ProjectSprintStarted.of(this.id, sprintId, newSequenceNumber);
-		return E.right([newProject, event]);
+		return pipe(
+			this.sprints.start(sprintId),
+			O.fold(
+				() => E.left(SprintNotExistError.of({ projectId: this.id, sprintId })),
+				([newSprints, _startedSprint]) => {
+					const newSequenceNumber = this.sequenceNumber + 1;
+					const newProject = new Project({
+						...this,
+						sprints: newSprints,
+						sequenceNumber: newSequenceNumber,
+					});
+					const event = ProjectSprintStarted.of(
+						this.id,
+						sprintId,
+						newSequenceNumber,
+					);
+					return E.right([newProject, event]);
+				},
+			),
+		);
 	}
 
 	completeSprint(
 		sprintId: SprintId,
 	): E.Either<SprintNotExistError, [Project, ProjectSprintCompleted]> {
-		const newSprintsOpt = this.sprints.done(sprintId);
-		if (O.isNone(newSprintsOpt)) {
-			return E.left(SprintNotExistError.of({ projectId: this.id, sprintId }));
-		}
-		const [newSprints, _completedSprint] = newSprintsOpt.value;
-
-		const newSequenceNumber = this.sequenceNumber + 1;
-		const newProject = new Project({
-			...this,
-			sprints: newSprints,
-			sequenceNumber: newSequenceNumber,
-		});
-		const event = ProjectSprintCompleted.of(
-			this.id,
-			sprintId,
-			newSequenceNumber,
+		return pipe(
+			this.sprints.done(sprintId),
+			O.fold(
+				() => E.left(SprintNotExistError.of({ projectId: this.id, sprintId })),
+				([newSprints, _completedSprint]) => {
+					const newSequenceNumber = this.sequenceNumber + 1;
+					const newProject = new Project({
+						...this,
+						sprints: newSprints,
+						sequenceNumber: newSequenceNumber,
+					});
+					const event = ProjectSprintCompleted.of(
+						this.id,
+						sprintId,
+						newSequenceNumber,
+					);
+					return E.right([newProject, event]);
+				},
+			),
 		);
-		return E.right([newProject, event]);
 	}
 
 	addMember(member: Member): E.Either<never, [Project, ProjectMemberAdded]> {
