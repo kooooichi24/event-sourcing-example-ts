@@ -1,16 +1,19 @@
-import type { DomainError } from "../../shared/domain-error";
+import { DomainError } from "../../shared/domain-error";
 import type { ProjectId } from "../project-id";
 import type { SprintId } from "../sprint-id";
 
-export interface SprintNotExistError extends DomainError {
-	type: "SprintNotExistError";
-	detail: { projectId: ProjectId; sprintId: SprintId };
+export class SprintNotExistError implements DomainError {
+	readonly symbol = Symbol("SprintNotExistError");
+	readonly message = "The sprint does not exist in the project.";
+
+	private constructor(
+		readonly detail: { projectId: ProjectId; sprintId: SprintId },
+	) {}
+
+	static of(detail: {
+		projectId: ProjectId;
+		sprintId: SprintId;
+	}): SprintNotExistError {
+		return new SprintNotExistError(detail);
+	}
 }
-export const genSprintNotExistError = (detail: {
-	projectId: ProjectId;
-	sprintId: SprintId;
-}): SprintNotExistError => ({
-	type: "SprintNotExistError",
-	message: "The sprint does not exist in the project.",
-	detail,
-});
