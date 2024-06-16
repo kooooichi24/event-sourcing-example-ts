@@ -1,5 +1,5 @@
 export interface DomainError {
-	type: string;
-	message: string;
-	detail: Record<string, unknown>;
+	readonly symbol: Symbol;
+	readonly message: string;
+	readonly detail: Record<string, unknown>;
 }
