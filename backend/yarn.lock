@@ -6323,10 +6323,10 @@ serverless-offline@^13.6.0:
     velocityjs "^2.0.6"
     ws "^8.16.0"
 
-serverless@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/serverless/-/serverless-4.1.0.tgz#02d6f6d7469c65e442547504707e7d1b5fc37849"
-  integrity sha512-Gn4SfOkxdA6EovB5+RxjQO9eixtnjDYsLs+7IsAMjOe6sOLHzPLvw8/jMxuMAaou2ocYwl8/FQEr6vad0dbU9Q==
+serverless@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/serverless/-/serverless-4.1.5.tgz#efbe401b798f64ee84d13950261e70a5dd0deed0"
+  integrity sha512-2+Gb7PTD4Ll3DV9k2tZlnL/9kM6f2/hgLWMQWt+jb2NiGZyky0o1gzsQzcpbY71c2fFASXdyQqxTDIPvHkMKzQ==
   dependencies:
     axios "^1.6.0"
     axios-proxy-builder "^0.1.2"
