@@ -4,6 +4,7 @@ import * as O from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/function";
 import type { AccountId } from "../account/account-id";
 import {
+	MemberNotFoundError,
 	ProjectAlreadyDeletedError,
 	SprintNotExistError,
 } from "./errors/project-errors";
@@ -255,17 +256,20 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	removeMember(
 		accountId: AccountId,
-	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectMemberRemoved]> {
+	): E.Either<
+		ProjectAlreadyDeletedError | MemberNotFoundError,
+		[Project, ProjectMemberRemoved]
+	> {
 		if (this.deleted) {
 			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
 		}
 		if (!this.members.containsByAccountId(accountId)) {
-			throw new Error("The userAccountId is not the member of the project.");
+			return E.left(MemberNotFoundError.of({ projectId: this.id, accountId }));
 		}
 
 		const newMembersOpt = this.members.removeMemberByAccountId(accountId);
 		if (O.isNone(newMembersOpt)) {
-			throw new Error("The userAccountId is not the member of the project.");
+			return E.left(MemberNotFoundError.of({ projectId: this.id, accountId }));
 		}
 		const [newMembers, _removedMember] = newMembersOpt.value;
 
@@ -286,17 +290,20 @@ export class Project implements Aggregate<Project, ProjectId> {
 	changeMemberRole(
 		accountId: AccountId,
 		memberRole: MemberRole,
-	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectMemberRoleChanged]> {
+	): E.Either<
+		ProjectAlreadyDeletedError | MemberNotFoundError,
+		[Project, ProjectMemberRoleChanged]
+	> {
 		if (this.deleted) {
 			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
 		}
 		if (!this.members.containsByAccountId(accountId)) {
-			throw new Error("The userAccountId is not the member of the project.");
+			return E.left(MemberNotFoundError.of({ projectId: this.id, accountId }));
 		}
 
 		const newMembersOpt = this.members.changeRole(accountId, memberRole);
 		if (O.isNone(newMembersOpt)) {
-			throw new Error("The userAccountId is not the member of the project.");
+			return E.left(MemberNotFoundError.of({ projectId: this.id, accountId }));
 		}
 
 		const [newMembers, _changedMember] = newMembersOpt.value;

@@ -1,3 +1,4 @@
+import type { AccountId } from "../../account/account-id";
 import type { DomainError } from "../../shared/domain-error";
 import type { ProjectId } from "../project-id";
 import type { SprintId } from "../sprint-id";
@@ -26,5 +27,21 @@ export class SprintNotExistError implements DomainError {
 		sprintId: SprintId;
 	}): SprintNotExistError {
 		return new SprintNotExistError(detail);
+	}
+}
+
+export class MemberNotFoundError implements DomainError {
+	readonly symbol = Symbol("MemberNotFoundError");
+	readonly message = "The member was not found.";
+
+	private constructor(
+		readonly detail: { projectId: ProjectId; accountId: AccountId },
+	) {}
+
+	static of(detail: {
+		projectId: ProjectId;
+		accountId: AccountId;
+	}): MemberNotFoundError {
+		return new MemberNotFoundError(detail);
 	}
 }
