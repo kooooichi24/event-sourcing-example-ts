@@ -6,7 +6,7 @@ import type { AccountId } from "../account/account-id";
 import {
 	MemberNotFoundError,
 	ProjectAlreadyDeletedError,
-	SprintNotExistError,
+	SprintNotFoundError,
 } from "./errors/project-errors";
 import {
 	ProjectCreated,
@@ -141,7 +141,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 	editSprint(
 		sprint: Sprint,
 	): E.Either<
-		ProjectAlreadyDeletedError | SprintNotExistError,
+		ProjectAlreadyDeletedError | SprintNotFoundError,
 		[Project, ProjectSprintEdited]
 	> {
 		if (this.deleted) {
@@ -153,7 +153,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 			O.fold(
 				() =>
 					E.left(
-						SprintNotExistError.of({ projectId: this.id, sprintId: sprint.id }),
+						SprintNotFoundError.of({ projectId: this.id, sprintId: sprint.id }),
 					),
 				([newSprints, _editedSprint]) => {
 					const newSequenceNumber = this.sequenceNumber + 1;
@@ -176,7 +176,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 	startSprint(
 		sprintId: SprintId,
 	): E.Either<
-		ProjectAlreadyDeletedError | SprintNotExistError,
+		ProjectAlreadyDeletedError | SprintNotFoundError,
 		[Project, ProjectSprintStarted]
 	> {
 		if (this.deleted) {
@@ -186,7 +186,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return pipe(
 			this.sprints.start(sprintId),
 			O.fold(
-				() => E.left(SprintNotExistError.of({ projectId: this.id, sprintId })),
+				() => E.left(SprintNotFoundError.of({ projectId: this.id, sprintId })),
 				([newSprints, _startedSprint]) => {
 					const newSequenceNumber = this.sequenceNumber + 1;
 					const newProject = new Project({
@@ -208,7 +208,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 	completeSprint(
 		sprintId: SprintId,
 	): E.Either<
-		ProjectAlreadyDeletedError | SprintNotExistError,
+		ProjectAlreadyDeletedError | SprintNotFoundError,
 		[Project, ProjectSprintCompleted]
 	> {
 		if (this.deleted) {
@@ -218,7 +218,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return pipe(
 			this.sprints.done(sprintId),
 			O.fold(
-				() => E.left(SprintNotExistError.of({ projectId: this.id, sprintId })),
+				() => E.left(SprintNotFoundError.of({ projectId: this.id, sprintId })),
 				([newSprints, _completedSprint]) => {
 					const newSequenceNumber = this.sequenceNumber + 1;
 					const newProject = new Project({
