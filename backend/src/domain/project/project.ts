@@ -120,7 +120,12 @@ export class Project implements Aggregate<Project, ProjectId> {
 		return E.right([newProject, event]);
 	}
 
-	addSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintAdded]> {
+	addSprint(
+		sprint: Sprint,
+	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectSprintAdded]> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
 		const newSprints = this.sprints.add(sprint);
 		const newSequenceNumber = this.sequenceNumber + 1;
 		const newProject = new Project({
@@ -134,7 +139,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	editSprint(
 		sprint: Sprint,
-	): E.Either<SprintNotExistError, [Project, ProjectSprintEdited]> {
+	): E.Either<
+		ProjectAlreadyDeletedError | SprintNotExistError,
+		[Project, ProjectSprintEdited]
+	> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
+
 		return pipe(
 			this.sprints.edit(sprint),
 			O.fold(
@@ -162,7 +174,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	startSprint(
 		sprintId: SprintId,
-	): E.Either<SprintNotExistError, [Project, ProjectSprintStarted]> {
+	): E.Either<
+		ProjectAlreadyDeletedError | SprintNotExistError,
+		[Project, ProjectSprintStarted]
+	> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
+
 		return pipe(
 			this.sprints.start(sprintId),
 			O.fold(
@@ -187,7 +206,14 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	completeSprint(
 		sprintId: SprintId,
-	): E.Either<SprintNotExistError, [Project, ProjectSprintCompleted]> {
+	): E.Either<
+		ProjectAlreadyDeletedError | SprintNotExistError,
+		[Project, ProjectSprintCompleted]
+	> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
+
 		return pipe(
 			this.sprints.done(sprintId),
 			O.fold(
@@ -210,7 +236,12 @@ export class Project implements Aggregate<Project, ProjectId> {
 		);
 	}
 
-	addMember(member: Member): E.Either<never, [Project, ProjectMemberAdded]> {
+	addMember(
+		member: Member,
+	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectMemberAdded]> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
 		const newMembers = this.members.addMember(member);
 		const newSequenceNumber = this.sequenceNumber + 1;
 		const newProject = new Project({
@@ -224,7 +255,10 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	removeMember(
 		accountId: AccountId,
-	): E.Either<never, [Project, ProjectMemberRemoved]> {
+	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectMemberRemoved]> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
 		if (!this.members.containsByAccountId(accountId)) {
 			throw new Error("The userAccountId is not the member of the project.");
 		}
@@ -252,7 +286,10 @@ export class Project implements Aggregate<Project, ProjectId> {
 	changeMemberRole(
 		accountId: AccountId,
 		memberRole: MemberRole,
-	): E.Either<never, [Project, ProjectMemberRoleChanged]> {
+	): E.Either<ProjectAlreadyDeletedError, [Project, ProjectMemberRoleChanged]> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
 		if (!this.members.containsByAccountId(accountId)) {
 			throw new Error("The userAccountId is not the member of the project.");
 		}
@@ -291,7 +328,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectSprintAdded;
 				const result = this.addSprint(typedEvent.sprint);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
@@ -299,7 +336,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectMemberAdded;
 				const result = this.addMember(typedEvent.member);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
@@ -331,7 +368,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				const typedEvent = event as ProjectMemberRemoved;
 				const result = this.removeMember(typedEvent.accountId);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
@@ -342,7 +379,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 					typedEvent.memberRole,
 				);
 				if (E.isLeft(result)) {
-					throw new Error(result.left);
+					throw new Error(result.left.message);
 				}
 				return result.right[0];
 			}
