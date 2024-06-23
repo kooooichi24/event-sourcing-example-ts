@@ -14,9 +14,9 @@ export class ProjectAlreadyDeletedError implements DomainError {
 	}
 }
 
-export class SprintNotExistError implements DomainError {
-	readonly symbol = Symbol("SprintNotExistError");
-	readonly message = "The sprint does not exist in the project.";
+export class SprintNotFoundError implements DomainError {
+	readonly symbol = Symbol("SprintNotFoundError");
+	readonly message = "The sprint was not found.";
 
 	private constructor(
 		readonly detail: { projectId: ProjectId; sprintId: SprintId },
@@ -25,8 +25,8 @@ export class SprintNotExistError implements DomainError {
 	static of(detail: {
 		projectId: ProjectId;
 		sprintId: SprintId;
-	}): SprintNotExistError {
-		return new SprintNotExistError(detail);
+	}): SprintNotFoundError {
+		return new SprintNotFoundError(detail);
 	}
 }
 
