@@ -3,10 +3,15 @@ import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/function";
 import type { AccountId } from "../account/account-id";
-import { SprintNotExistError } from "./errors/project-errors";
+import {
+	ProjectAlreadyDeletedError,
+	SprintNotExistError,
+} from "./errors/project-errors";
 import {
 	ProjectCreated,
 	ProjectCreatedTypeSymbol,
+	ProjectDeleted,
+	ProjectDeletedTypeSymbol,
 	type ProjectEvent,
 	ProjectMemberAdded,
 	ProjectMemberAddedTypeSymbol,
@@ -38,6 +43,7 @@ interface ProjectParams {
 	name: ProjectName;
 	members: Members;
 	sprints: Sprints;
+	deleted: boolean;
 	sequenceNumber: number;
 	version: number;
 }
@@ -50,6 +56,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 	readonly name: ProjectName;
 	readonly members: Members;
 	readonly sprints: Sprints;
+	readonly deleted: boolean;
 	readonly sequenceNumber: number;
 	readonly version: number;
 
@@ -58,6 +65,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 		this.name = params.name;
 		this.members = params.members;
 		this.sprints = params.sprints;
+		this.deleted = params.deleted;
 		this.sequenceNumber = params.sequenceNumber;
 		this.version = params.version;
 	}
@@ -69,6 +77,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 		const id = ProjectId.generate();
 		const members = Members.ofSingle(executorId);
 		const sprints = Sprints.ofEmpty();
+		const deleted = false;
 		const sequenceNumber = 1;
 		const version = 1;
 
@@ -78,6 +87,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 				name,
 				members,
 				sprints,
+				deleted,
 				sequenceNumber,
 				version,
 			}),
@@ -94,6 +104,20 @@ export class Project implements Aggregate<Project, ProjectId> {
 			(project, event) => project.applyEvent(event),
 			snapshot,
 		);
+	}
+
+	delete(): E.Either<ProjectAlreadyDeletedError, [Project, ProjectDeleted]> {
+		if (this.deleted) {
+			return E.left(ProjectAlreadyDeletedError.of({ projectId: this.id }));
+		}
+		const newSequenceNumber = this.sequenceNumber + 1;
+		const newProject = new Project({
+			...this,
+			deleted: true,
+			sequenceNumber: newSequenceNumber,
+		});
+		const event = ProjectDeleted.of(this.id, newSequenceNumber);
+		return E.right([newProject, event]);
 	}
 
 	addSprint(sprint: Sprint): E.Either<never, [Project, ProjectSprintAdded]> {
@@ -256,6 +280,13 @@ export class Project implements Aggregate<Project, ProjectId> {
 
 	private applyEvent(event: ProjectEvent): Project {
 		switch (event.symbol) {
+			case ProjectDeletedTypeSymbol: {
+				const result = this.delete();
+				if (E.isLeft(result)) {
+					throw new Error(result.left.message);
+				}
+				return result.right[0];
+			}
 			case ProjectSprintAddedTypeSymbol: {
 				const typedEvent = event as ProjectSprintAdded;
 				const result = this.addSprint(typedEvent.sprint);
@@ -335,6 +366,7 @@ export class Project implements Aggregate<Project, ProjectId> {
 			this.name.equals(other.name) &&
 			this.members.equals(other.members) &&
 			this.sprints.equals(other.sprints) &&
+			this.deleted === other.deleted &&
 			this.sequenceNumber === other.sequenceNumber &&
 			this.version === other.version
 		);
@@ -346,15 +378,16 @@ export class Project implements Aggregate<Project, ProjectId> {
 			name: this.name.toJSON(),
 			members: this.members.toJSON(),
 			sprints: this.sprints.toJSON(),
+			deleted: this.deleted,
 			sequenceNumber: this.sequenceNumber,
 			version: this.version,
 		};
 	}
 
 	toString(): string {
-		return `${
-			Project.name
-		}(${this.id.toString()}, ${this.name.toString()}, ${this.members.toString()}, ${this.sprints.toString()}, ${
+		return `${Project.name}(${this.id.toString()}, ${
+			this.deleted
+		}, ${this.name.toString()}, ${this.members.toString()}, ${this.sprints.toString()}, ${
 			this.sequenceNumber
 		}, ${this.version})`;
 	}
