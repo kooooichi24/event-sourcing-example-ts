@@ -5,7 +5,7 @@
   "author": "kooooichi24 <ex.kouichi1224@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=20.11.1"
+    "node": ">=20.15.0"
   },
   "scripts": {
     "setup:db": "docker-compose -f ./db/event-store/docker-compose.yml up -d",
@@ -21,7 +21,7 @@
     "@swc/core": "^1.6.5",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.14.8",
     "@types/uuid": "^10.0.0",
     "esbuild": "^0.21.5",
     "jest": "^29.7.0",
