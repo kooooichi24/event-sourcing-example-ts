@@ -10,6 +10,7 @@ import type { SprintId } from "../sprint-id";
 
 type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
+	| typeof ProjectDeletedTypeSymbol
 	| typeof ProjectSprintAddedTypeSymbol
 	| typeof ProjectSprintEditedTypeSymbol
 	| typeof ProjectSprintStartedTypeSymbol
@@ -59,6 +60,38 @@ export class ProjectCreated implements ProjectEvent {
 
 	toString() {
 		return `ProjectCreated(${this.id.toString()}, ${this.aggregateId.toString()}, ${this.name.toString()}, ${this.members.toString()}, ${
+			this.sequenceNumber
+		}, ${this.occurredAt.toISOString()})`;
+	}
+}
+
+/**
+ * ProjectDeleted
+ */
+export const ProjectDeletedTypeSymbol = Symbol("ProjectDeleted");
+export class ProjectDeleted implements ProjectEvent {
+	readonly symbol: typeof ProjectDeletedTypeSymbol = ProjectDeletedTypeSymbol;
+	readonly typeName = "ProjectDeleted";
+	readonly isCreated = false;
+
+	private constructor(
+		readonly id: string,
+		readonly aggregateId: ProjectId,
+		readonly sequenceNumber: number,
+		readonly occurredAt: Date,
+	) {}
+
+	static of(aggregateId: ProjectId, sequenceNumber: number): ProjectDeleted {
+		return new ProjectDeleted(
+			uuidv4(),
+			aggregateId,
+			sequenceNumber,
+			new Date(),
+		);
+	}
+
+	toString() {
+		return `ProjectDeleted(${this.id.toString()}, ${this.aggregateId.toString()}, ${
 			this.sequenceNumber
 		}, ${this.occurredAt.toISOString()})`;
 	}
