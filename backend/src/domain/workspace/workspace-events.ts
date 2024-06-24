@@ -5,7 +5,7 @@ import type { WorkspaceName } from "./workspace-name";
 
 type WorkspaceEventTypeSymbol = typeof WorkspaceCreatedTypeSymbol;
 
-interface WorkspaceEvent extends Event<WorkspaceId> {
+export interface WorkspaceEvent extends Event<WorkspaceId> {
 	symbol: WorkspaceEventTypeSymbol;
 	toString: () => string;
 }
