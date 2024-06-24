@@ -1,8 +1,8 @@
-import * as TE from "fp-ts/TaskEither";
-import * as O from "fp-ts/lib/Option";
-import { WorkspaceId } from "./workspace-id";
-import { Workspace } from "./workspace";
-import { WorkspaceEvent } from "./workspace-events";
+import type * as TE from "fp-ts/TaskEither";
+import type * as O from "fp-ts/lib/Option";
+import type { Workspace } from "./workspace";
+import type { WorkspaceEvent } from "./workspace-events";
+import type { WorkspaceId } from "./workspace-id";
 
 export interface IWorkspaceRepository {
 	store(event: WorkspaceEvent, snapshot: Workspace): TE.TaskEither<never, void>;
