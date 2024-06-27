@@ -21,15 +21,10 @@ export class WorkspaceRepository implements IWorkspaceRepository {
 		event: WorkspaceEvent,
 		snapshot: Workspace,
 	): TE.TaskEither<WorkspaceRepositoryError, void> {
-		if (
-			event.isCreated ||
-			(this.snapshotDecider !== undefined &&
-				this.snapshotDecider(event, snapshot))
-		) {
+		if (event.isCreated || this.snapshotDecider?.(event, snapshot)) {
 			return this.storeEventAndSnapshot(event, snapshot);
-		} else {
-			return this.storeEvent(event, snapshot.version);
 		}
+		return this.storeEvent(event, snapshot.version);
 	}
 
 	private storeEvent(
@@ -44,7 +39,8 @@ export class WorkspaceRepository implements IWorkspaceRepository {
 						"Failed to store event and snapshot due to optimistic lock error",
 						reason,
 					);
-				} else if (reason instanceof Error) {
+				}
+				if (reason instanceof Error) {
 					return new WorkspaceRepositoryError(
 						"Failed to store event and snapshot due to error",
 						reason,
@@ -67,7 +63,8 @@ export class WorkspaceRepository implements IWorkspaceRepository {
 						"Failed to store event and snapshot due to optimistic lock error",
 						reason,
 					);
-				} else if (reason instanceof Error) {
+				}
+				if (reason instanceof Error) {
 					return new WorkspaceRepositoryError(
 						"Failed to store event and snapshot due to error",
 						reason,
@@ -121,6 +118,6 @@ export class WorkspaceRepository implements IWorkspaceRepository {
 
 	static retentionCriteriaOf(numberOfEvents: number): SnapshotDecider {
 		return (event: WorkspaceEvent, _: Workspace) =>
-			event.sequenceNumber % numberOfEvents == 0;
+			event.sequenceNumber % numberOfEvents === 0;
 	}
 }
