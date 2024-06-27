@@ -4,7 +4,20 @@ import type { Workspace } from "./workspace";
 import type { WorkspaceEvent } from "./workspace-events";
 import type { WorkspaceId } from "./workspace-id";
 
+export class WorkspaceRepositoryError extends Error {
+	constructor(message: string, cause?: Error) {
+		super(message);
+		this.name = "RepositoryError";
+		this.cause = cause;
+	}
+}
+
 export interface IWorkspaceRepository {
-	store(event: WorkspaceEvent, snapshot: Workspace): TE.TaskEither<never, void>;
-	findById(id: WorkspaceId): TE.TaskEither<never, O.Option<Workspace>>;
+	store(
+		event: WorkspaceEvent,
+		snapshot: Workspace,
+	): TE.TaskEither<WorkspaceRepositoryError, void>;
+	findById(
+		id: WorkspaceId,
+	): TE.TaskEither<WorkspaceRepositoryError, O.Option<Workspace>>;
 }
