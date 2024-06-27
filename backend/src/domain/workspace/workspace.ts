@@ -2,7 +2,7 @@ import type { Aggregate } from "event-store-adapter-js";
 import {
 	WorkspaceCreated,
 	WorkspaceCreatedTypeSymbol,
-	WorkspaceEvent,
+	type WorkspaceEvent,
 } from "./workspace-events";
 import type { WorkspaceId } from "./workspace-id";
 import type { WorkspaceName } from "./workspace-name";

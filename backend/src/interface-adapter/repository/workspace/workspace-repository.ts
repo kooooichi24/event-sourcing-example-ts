@@ -1,13 +1,13 @@
-import { EventStore, OptimisticLockError } from "event-store-adapter-js";
+import { type EventStore, OptimisticLockError } from "event-store-adapter-js";
 import * as TE from "fp-ts/TaskEither";
 import * as O from "fp-ts/lib/Option";
 import { Workspace } from "../../../domain/workspace/workspace";
-import { WorkspaceEvent } from "../../../domain/workspace/workspace-events";
+import type { WorkspaceEvent } from "../../../domain/workspace/workspace-events";
+import type { WorkspaceId } from "../../../domain/workspace/workspace-id";
 import {
-	IWorkspaceRepository,
+	type IWorkspaceRepository,
 	WorkspaceRepositoryError,
 } from "../../../domain/workspace/workspace-repository";
-import { WorkspaceId } from "../../../domain/workspace/workspace-id";
 
 type SnapshotDecider = (event: WorkspaceEvent, snapshot: Workspace) => boolean;
 
