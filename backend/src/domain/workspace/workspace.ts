@@ -1,5 +1,9 @@
 import type { Aggregate } from "event-store-adapter-js";
-import { WorkspaceCreated } from "./workspace-events";
+import {
+	WorkspaceCreated,
+	WorkspaceCreatedTypeSymbol,
+	WorkspaceEvent,
+} from "./workspace-events";
 import type { WorkspaceId } from "./workspace-id";
 import type { WorkspaceName } from "./workspace-name";
 
@@ -43,6 +47,20 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 
 	static of(params: WorkspaceParams): Workspace {
 		return new Workspace(params);
+	}
+
+	static replay(events: WorkspaceEvent[], snapshot: Workspace): Workspace {
+		return events.reduce(
+			(project, event) => project.applyEvent(event),
+			snapshot,
+		);
+	}
+
+	private applyEvent(event: WorkspaceEvent): Workspace {
+		switch (event.symbol) {
+			case WorkspaceCreatedTypeSymbol:
+				return this;
+		}
 	}
 
 	withVersion(version: number): Workspace {
