@@ -24,13 +24,83 @@ functions:
           path: /
           method: GET
 
+resources:
+  Resources:
+    #####################################
+    # Journal Table
+    #####################################
+    JournalTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: journal
+        AttributeDefinitions:
+          - AttributeName: pkey
+            AttributeType: S
+          - AttributeName: skey
+            AttributeType: S
+          - AttributeName: aid
+            AttributeType: S
+          - AttributeName: seq_nr
+            AttributeType: N
+        KeySchema:
+          - AttributeName: pkey
+            KeyType: HASH
+          - AttributeName: skey
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: journal-aid-index
+            KeySchema:
+              - AttributeName: aid
+                KeyType: HASH
+              - AttributeName: seq_nr
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        StreamSpecification:
+          StreamViewType: NEW_IMAGE
+          StreamEnabled: true
+
+    #####################################
+    # Snapshot Table
+    #####################################
+    SnapshotTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: snapshot
+        AttributeDefinitions:
+          - AttributeName: pkey
+            AttributeType: S
+          - AttributeName: skey
+            AttributeType: S
+          - AttributeName: aid
+            AttributeType: S
+          - AttributeName: seq_nr
+            AttributeType: N
+        KeySchema:
+          - AttributeName: pkey
+            KeyType: HASH
+          - AttributeName: skey
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: snapshot-aid-index
+            KeySchema:
+              - AttributeName: aid
+                KeyType: HASH
+              - AttributeName: seq_nr
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+
 custom:
   serverless-dynamodb:
     stages:
       - local
     start:
       docker: true
-      port: 8000
+      port: 18000
+      host: 127.0.0.1
       inMemory: true
       migrate: true
       seed: false
