@@ -6,7 +6,7 @@ import type { AccountName } from "./account-name";
 
 type AccountEventTypeSymbol = typeof AccountCreatedTypeSymbol;
 
-interface AccountEvent extends Event<AccountId> {
+export interface AccountEvent extends Event<AccountId> {
 	symbol: AccountEventTypeSymbol;
 	toString: () => string;
 }
