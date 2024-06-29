@@ -2,7 +2,7 @@ import type { Aggregate } from "event-store-adapter-js";
 import {
 	AccountCreated,
 	AccountCreatedTypeSymbol,
-	AccountEvent,
+	type AccountEvent,
 } from "./account-events";
 import { AccountId } from "./account-id";
 import type { AccountName } from "./account-name";

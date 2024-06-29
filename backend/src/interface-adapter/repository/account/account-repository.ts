@@ -5,8 +5,8 @@ import { Account } from "../../../domain/account/account";
 import type { AccountEvent } from "../../../domain/account/account-events";
 import type { AccountId } from "../../../domain/account/account-id";
 import {
-	type IAccountRepository,
 	AccountRepositoryError,
+	type IAccountRepository,
 } from "../../../domain/account/account-repository";
 
 type SnapshotDecider = (event: AccountEvent, snapshot: Account) => boolean;
