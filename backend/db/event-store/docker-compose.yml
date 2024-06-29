@@ -3,7 +3,7 @@ services:
   dynamodb-local:
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
-    container_name: es-example-ts.event-store.local
+    container_name: es-example-ts.dynamodb.local
     ports:
       - "18000:8000"
     volumes:
