@@ -47,9 +47,7 @@ resources:
             KeyType: HASH
           - AttributeName: skey
             KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
+        BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
           - IndexName: journal-aid-index
             KeySchema:
@@ -59,9 +57,6 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 10
-              WriteCapacityUnits: 10
         StreamSpecification:
           StreamViewType: NEW_IMAGE
           StreamEnabled: true
@@ -87,9 +82,7 @@ resources:
             KeyType: HASH
           - AttributeName: skey
             KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
+        BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
           - IndexName: snapshot-aid-index
             KeySchema:
@@ -99,9 +92,6 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 10
-              WriteCapacityUnits: 10
 
 custom:
   serverless-dynamodb:
