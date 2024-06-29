@@ -15,6 +15,11 @@
     {
       "matchDepTypes": ["devDependencies"],
       "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["serverless"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ],
   "prHourlyLimit": 0,
