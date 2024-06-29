@@ -59,7 +59,7 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 	private applyEvent(event: WorkspaceEvent): Workspace {
 		switch (event.symbol) {
 			case WorkspaceCreatedTypeSymbol:
-				return this;
+				throw new Error("WorkspaceCreated event should not be applied");
 		}
 	}
 
