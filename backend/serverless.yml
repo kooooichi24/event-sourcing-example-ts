@@ -2,7 +2,7 @@ service: event-sourcing-example-ts-graphql-backend
 
 plugins:
   - serverless-esbuild
-  - serverless-dynamodb-local
+  - serverless-dynamodb
   - serverless-offline
 
 provider:
@@ -25,7 +25,7 @@ functions:
           method: GET
 
 custom:
-  dynamodb:
+  serverless-dynamodb:
     stages:
       - local
     start:
