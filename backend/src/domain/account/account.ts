@@ -1,5 +1,9 @@
 import type { Aggregate } from "event-store-adapter-js";
-import { AccountCreated } from "./account-events";
+import {
+	AccountCreated,
+	AccountCreatedTypeSymbol,
+	AccountEvent,
+} from "./account-events";
 import { AccountId } from "./account-id";
 import type { AccountName } from "./account-name";
 
@@ -49,6 +53,20 @@ export class Account implements Aggregate<Account, AccountId> {
 
 	static of(params: AccountParams): Account {
 		return new Account(params);
+	}
+
+	static replay(events: AccountEvent[], snapshot: Account): Account {
+		return events.reduce(
+			(project, event) => project.applyEvent(event),
+			snapshot,
+		);
+	}
+
+	private applyEvent(event: AccountEvent): Account {
+		switch (event.symbol) {
+			case AccountCreatedTypeSymbol:
+				throw new Error("AccountCreated event should not be applied");
+		}
 	}
 
 	withVersion(version: number): Account {
