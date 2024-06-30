@@ -55,3 +55,8 @@ export class AccountId implements AggregateId {
 		return new AccountId(uuidv4());
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToAccountId(json: any): AccountId {
+	return AccountId.of(json.value);
+}
