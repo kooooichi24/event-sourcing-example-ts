@@ -47,3 +47,8 @@ export class AccountName {
 		return new AccountName(value);
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToAccountName(json: any): AccountName {
+	return AccountName.of(json.value);
+}

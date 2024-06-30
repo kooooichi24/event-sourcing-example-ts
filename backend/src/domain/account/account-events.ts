@@ -1,8 +1,8 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
 import type { AccountRole } from "./account";
-import type { AccountId } from "./account-id";
-import type { AccountName } from "./account-name";
+import { type AccountId, convertJSONToAccountId } from "./account-id";
+import { type AccountName, convertJSONToAccountName } from "./account-name";
 
 type AccountEventTypeSymbol = typeof AccountCreatedTypeSymbol;
 
@@ -50,5 +50,23 @@ export class AccountCreated implements AccountEvent {
 			sequenceNumber,
 			new Date(),
 		);
+	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToAccountEvent(json: any): AccountEvent {
+	const id = convertJSONToAccountId(json.data.aggregateId);
+	switch (json.type) {
+		case "AccountCreated": {
+			const name = convertJSONToAccountName(json.data.name);
+			return AccountCreated.of(
+				id,
+				name,
+				json.data.role,
+				json.data.sequenceNumber,
+			);
+		}
+		default:
+			throw new Error(`Unknown type: ${json.type}`);
 	}
 }
