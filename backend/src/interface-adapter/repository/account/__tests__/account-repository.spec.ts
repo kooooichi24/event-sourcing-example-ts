@@ -1,8 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { faker } from "@faker-js/faker";
-import * as E from "fp-ts/lib/Either";
-import * as O from 'fp-ts/lib/Option';
 import { type EventStore, EventStoreFactory } from "event-store-adapter-js";
+import * as E from "fp-ts/lib/Either";
+import * as O from "fp-ts/lib/Option";
 import {
 	Account,
 	convertJSONToAccount,
