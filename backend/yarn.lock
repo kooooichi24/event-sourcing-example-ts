@@ -488,7 +488,7 @@
     tslib "^2.6.2"
     uuid "^9.0.1"
 
-"@aws-sdk/client-dynamodb@^3.428.0":
+"@aws-sdk/client-dynamodb@^3.428.0", "@aws-sdk/client-dynamodb@^3.606.0":
   version "3.606.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.606.0.tgz#d43a26a084a3906027ed21131aacc730075d847e"
   integrity sha512-Htx6JxaJbhstUhyZiUtmleMqifwU9jHBdS28GAPCUmcOjoioRfrN7sgGg/G9Tl9kQeu4BuJRG9ss044uD0SU5A==
