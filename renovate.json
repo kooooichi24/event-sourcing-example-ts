@@ -23,9 +23,7 @@
       "enabled": false
     },
     {
-      "excludePackageNames": [
-        "@aws-sdk/client-dynamodb"
-      ],
+      "matchPackageNames": ["@aws-sdk/client-dynamodb"],
       "enabled": false
     }
   ],
