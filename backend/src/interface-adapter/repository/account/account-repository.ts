@@ -92,7 +92,6 @@ export class AccountRepository implements IAccountRepository {
 				return O.some(Account.replay(events, snapshot));
 			},
 			(reason: unknown) => {
-				console.log("reason", reason);
 				if (reason instanceof Error) {
 					return new AccountRepositoryError(
 						"Failed to find by id to error",
