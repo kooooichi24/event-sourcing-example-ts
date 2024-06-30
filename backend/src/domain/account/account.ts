@@ -4,8 +4,8 @@ import {
 	AccountCreatedTypeSymbol,
 	type AccountEvent,
 } from "./account-events";
-import { AccountId } from "./account-id";
-import type { AccountName } from "./account-name";
+import { AccountId, convertJSONToAccountId } from "./account-id";
+import { type AccountName, convertJSONToAccountName } from "./account-name";
 
 export type AccountRole = "Admin" | "Normal";
 
@@ -102,4 +102,17 @@ export class Account implements Aggregate<Account, AccountId> {
 			this.role
 		}, ${this.sequenceNumber}, ${this.version})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToAccount(json: any): Account {
+	const id = convertJSONToAccountId(json.data.id);
+	const name = convertJSONToAccountName(json.data.name);
+	return Account.of({
+		id,
+		name,
+		role: json.data.role,
+		sequenceNumber: json.data.sequenceNumber,
+		version: json.data.version,
+	});
 }
