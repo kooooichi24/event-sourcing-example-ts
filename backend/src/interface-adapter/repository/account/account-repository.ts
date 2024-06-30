@@ -32,7 +32,7 @@ export class AccountRepository implements IAccountRepository {
 		version: number,
 	): TE.TaskEither<AccountRepositoryError, void> {
 		return TE.tryCatch(
-			async () => await this.eventStore.persistEvent(event, version),
+			() => this.eventStore.persistEvent(event, version),
 			(reason) => {
 				if (reason instanceof OptimisticLockError) {
 					return new AccountRepositoryError(
@@ -56,8 +56,7 @@ export class AccountRepository implements IAccountRepository {
 		snapshot: Account,
 	): TE.TaskEither<AccountRepositoryError, void> {
 		return TE.tryCatch(
-			async () =>
-				await this.eventStore.persistEventAndSnapshot(event, snapshot),
+			() => this.eventStore.persistEventAndSnapshot(event, snapshot),
 			(reason) => {
 				if (reason instanceof OptimisticLockError) {
 					return new AccountRepositoryError(
