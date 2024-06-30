@@ -21,6 +21,13 @@
       "matchPackagePatterns": ["serverless"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "matchPaths": ["package.json"],
+      "excludePackageNames": [
+        "@aws-sdk/client-dynamodb"
+      ],
+      "enabled": false
     }
   ],
   "prHourlyLimit": 0,
