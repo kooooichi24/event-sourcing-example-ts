@@ -84,7 +84,7 @@ resources:
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
-          - IndexName: snapshot-aid-index
+          - IndexName: snapshots-aid-index
             KeySchema:
               - AttributeName: aid
                 KeyType: HASH
