@@ -7,7 +7,7 @@ describe("workspace", () => {
 	it("Create", () => {
 		// Given
 		const id = WorkspaceId.generate();
-		const name = WorkspaceName.of(faker.internet.userName());
+		const name = WorkspaceName.of(faker.internet.domainWord());
 
 		// When
 		const [workspace, workspaceCreated] = Workspace.create(id, name);
