@@ -24,11 +24,6 @@ jobs:
         run: yarn lint:ci
   test:
     runs-on: ubuntu-latest
-    services:
-      dynamodb-local:
-        image: amazon/dynamodb-local:latest
-        ports:
-          - 18000:8000
 
     steps:
       - name: Checkout code
@@ -39,5 +34,7 @@ jobs:
           node-version-file: ./backend/.node-version
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Setup DynamoDB
+        run: yarn setup:db
       - name: Run tests
         run: yarn test
