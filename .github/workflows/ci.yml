@@ -24,6 +24,7 @@ jobs:
         run: yarn lint:ci
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,5 +34,11 @@ jobs:
           node-version-file: ./backend/.node-version
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v3.0.0
+        with:
+          port: 18000
+          cors: "*"
+          sharedDb: true
       - name: Run tests
         run: yarn test
