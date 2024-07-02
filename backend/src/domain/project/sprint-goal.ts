@@ -44,3 +44,8 @@ export class SprintGoal {
 		return `${SprintGoal.name}(${this.value})`;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToSprintGoal(json: any): SprintGoal {
+	return SprintGoal.of(json.value);
+}
