@@ -5,7 +5,7 @@ describe("workspace-name", () => {
 	describe("of", () => {
 		it("happy path", () => {
 			// Given
-			const value = faker.internet.userName();
+			const value = faker.internet.domainWord();
 
 			// When
 			const workspaceName = WorkspaceName.of(value);
