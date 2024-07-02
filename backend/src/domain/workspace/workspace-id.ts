@@ -55,3 +55,8 @@ export class WorkspaceId implements AggregateId {
 		return new WorkspaceId(uuidv4());
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToWorkspaceId(json: any): WorkspaceId {
+	return WorkspaceId.of(json.value);
+}
