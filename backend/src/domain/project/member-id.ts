@@ -49,3 +49,8 @@ export class MemberId {
 		return this.value === other.value;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToMemberId(json: any): MemberId {
+	return MemberId.of(json.value);
+}
