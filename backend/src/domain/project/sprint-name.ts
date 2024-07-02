@@ -48,3 +48,8 @@ export class SprintName {
 		return `${SprintName.name}(${this.value})`;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToSprintName(json: any): SprintName {
+	return SprintName.of(json.value);
+}

@@ -1,6 +1,6 @@
 import * as O from "fp-ts/lib/Option";
 import type { AccountId } from "../account/account-id";
-import { Member, type MemberRole } from "./member";
+import { Member, type MemberRole, convertJSONToMember } from "./member";
 import { MemberId } from "./member-id";
 
 const MembersTypeSymbol = Symbol("Members");
@@ -140,4 +140,10 @@ export class Members {
 			this.toArray().map((m) => m.toString()),
 		)})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToMembers(json: any): Members {
+	// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+	return Members.fromArray(json.values.map((v: any) => convertJSONToMember(v)));
 }

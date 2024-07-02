@@ -52,3 +52,8 @@ export class ProjectId implements AggregateId {
 		return this.value === other.value;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToProjectId(json: any): ProjectId {
+	return ProjectId.of(json.value);
+}

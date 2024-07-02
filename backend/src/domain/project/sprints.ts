@@ -1,5 +1,5 @@
 import * as O from "fp-ts/lib/Option";
-import type { Sprint } from "./sprint";
+import { type Sprint, convertJSONToSprint } from "./sprint";
 import type { SprintId } from "./sprint-id";
 
 const SprintsTypeSymbol = Symbol("Sprints");
@@ -111,4 +111,10 @@ export class Sprints {
 			this.toArray().map((m) => m.toString()),
 		)})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToSprints(json: any): Sprints {
+	// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+	return Sprints.fromArray(json.values.map((v: any) => convertJSONToSprint(v)));
 }

@@ -48,3 +48,8 @@ export class ProjectName {
 		return `${ProjectName.name}(${this.value})`;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToProjectName(json: any): ProjectName {
+	return ProjectName.of(json.value);
+}
