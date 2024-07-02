@@ -4,10 +4,10 @@ import {
 	WorkspaceCreatedTypeSymbol,
 	type WorkspaceEvent,
 } from "./workspace-events";
-import { convertJSONToWorkspaceId, type WorkspaceId } from "./workspace-id";
+import { type WorkspaceId, convertJSONToWorkspaceId } from "./workspace-id";
 import {
-	convertJSONToWorkspaceName,
 	type WorkspaceName,
+	convertJSONToWorkspaceName,
 } from "./workspace-name";
 
 export const WorkspaceTypeSymbol = Symbol("Workspace");

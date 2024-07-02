@@ -1,7 +1,10 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
-import { convertJSONToWorkspaceId, type WorkspaceId } from "./workspace-id";
-import { convertJSONToWorkspaceName, type WorkspaceName } from "./workspace-name";
+import { type WorkspaceId, convertJSONToWorkspaceId } from "./workspace-id";
+import {
+	type WorkspaceName,
+	convertJSONToWorkspaceName,
+} from "./workspace-name";
 
 type WorkspaceEventTypeSymbol = typeof WorkspaceCreatedTypeSymbol;
 
@@ -56,11 +59,7 @@ export function convertJSONToWorkspaceEvent(json: any): WorkspaceEvent {
 	switch (json.type) {
 		case "WorkspaceCreated": {
 			const name = convertJSONToWorkspaceName(json.data.name);
-			return WorkspaceCreated.of(
-				id,
-				name,
-				json.data.sequenceNumber,
-			);
+			return WorkspaceCreated.of(id, name, json.data.sequenceNumber);
 		}
 		default:
 			throw new Error(`Unknown type: ${json.type}`);
