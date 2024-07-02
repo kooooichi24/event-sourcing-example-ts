@@ -49,3 +49,8 @@ export class SprintId {
 		return this.value === other.value;
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToSprintId(json: any): SprintId {
+	return SprintId.of(json.value);
+}
