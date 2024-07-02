@@ -51,3 +51,8 @@ export class WorkspaceName {
 		return new WorkspaceName(value);
 	}
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToWorkspaceName(json: any): WorkspaceName {
+	return WorkspaceName.of(json.value);
+}

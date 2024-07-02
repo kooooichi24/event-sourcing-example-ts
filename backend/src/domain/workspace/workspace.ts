@@ -4,8 +4,11 @@ import {
 	WorkspaceCreatedTypeSymbol,
 	type WorkspaceEvent,
 } from "./workspace-events";
-import type { WorkspaceId } from "./workspace-id";
-import type { WorkspaceName } from "./workspace-name";
+import { type WorkspaceId, convertJSONToWorkspaceId } from "./workspace-id";
+import {
+	type WorkspaceName,
+	convertJSONToWorkspaceName,
+} from "./workspace-name";
 
 export const WorkspaceTypeSymbol = Symbol("Workspace");
 
@@ -94,4 +97,16 @@ export class Workspace implements Aggregate<Workspace, WorkspaceId> {
 			this.sequenceNumber
 		}, ${this.version})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToWorkspace(json: any): Workspace {
+	const id = convertJSONToWorkspaceId(json.data.id);
+	const name = convertJSONToWorkspaceName(json.data.name);
+	return Workspace.of({
+		id,
+		name,
+		sequenceNumber: json.data.sequenceNumber,
+		version: json.data.version,
+	});
 }
