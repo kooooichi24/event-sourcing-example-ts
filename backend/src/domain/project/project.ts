@@ -30,12 +30,12 @@ import {
 	ProjectSprintStartedTypeSymbol,
 } from "./events/project-events";
 import type { Member, MemberRole } from "./member";
-import { Members } from "./members";
-import { ProjectId } from "./project-id";
-import type { ProjectName } from "./project-name";
+import { Members, convertJSONToMembers } from "./members";
+import { ProjectId, convertJSONToProjectId } from "./project-id";
+import { type ProjectName, convertJSONToProjectName } from "./project-name";
 import type { Sprint } from "./sprint";
 import type { SprintId } from "./sprint-id";
-import { Sprints } from "./sprints";
+import { Sprints, convertJSONToSprints } from "./sprints";
 
 export const ProjectTypeSymbol = Symbol("Project");
 
@@ -435,4 +435,22 @@ export class Project implements Aggregate<Project, ProjectId> {
 			this.sequenceNumber
 		}, ${this.version})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToProject(json: any): Project {
+	const id = convertJSONToProjectId(json.data.id);
+	const name = convertJSONToProjectName(json.data.name);
+	const members = convertJSONToMembers(json.data.members);
+	const sprints = convertJSONToSprints(json.data.sprints);
+
+	return Project.of({
+		id,
+		name,
+		members,
+		sprints,
+		deleted: json.data.deleted,
+		sequenceNumber: json.data.sequenceNumber,
+		version: json.data.version,
+	});
 }
