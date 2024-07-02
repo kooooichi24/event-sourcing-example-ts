@@ -1,8 +1,8 @@
-import type dayjs from "dayjs";
+import dayjs from "dayjs";
 import * as E from "fp-ts/Either";
-import type { SprintGoal } from "./sprint-goal";
-import { SprintId } from "./sprint-id";
-import type { SprintName } from "./sprint-name";
+import { type SprintGoal, convertJSONToSprintGoal } from "./sprint-goal";
+import { SprintId, convertJSONToSprintId } from "./sprint-id";
+import { type SprintName, convertJSONToSprintName } from "./sprint-name";
 
 type SprintState = "Future" | "Active" | "Done";
 
@@ -144,4 +144,20 @@ export class Sprint {
 			this.state
 		}, ${this.startDateTime.toString()}, ${this.endDateTime.toString()})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToSprint(json: any): Sprint {
+	const id = convertJSONToSprintId(json.id);
+	const name = convertJSONToSprintName(json.name);
+	const goal = convertJSONToSprintGoal(json.goal);
+
+	return Sprint.of({
+		id,
+		name,
+		goal,
+		state: json.state,
+		startDateTime: dayjs(json.startDateTime),
+		endDateTime: dayjs(json.endDateTime),
+	});
 }
