@@ -1,12 +1,15 @@
 import type { Event } from "event-store-adapter-js";
 import { v4 as uuidv4 } from "uuid";
-import type { AccountId } from "../../account/account-id";
-import type { Member, MemberRole } from "../member";
-import type { Members } from "../members";
-import type { ProjectId } from "../project-id";
-import type { ProjectName } from "../project-name";
-import type { Sprint } from "../sprint";
-import type { SprintId } from "../sprint-id";
+import {
+	type AccountId,
+	convertJSONToAccountId,
+} from "../../account/account-id";
+import { type Member, type MemberRole, convertJSONToMember } from "../member";
+import { type Members, convertJSONToMembers } from "../members";
+import { type ProjectId, convertJSONToProjectId } from "../project-id";
+import { type ProjectName, convertJSONToProjectName } from "../project-name";
+import { type Sprint, convertJSONToSprint } from "../sprint";
+import { type SprintId, convertJSONToSprintId } from "../sprint-id";
 
 type ProjectEventTypeSymbol =
 	| typeof ProjectCreatedTypeSymbol
@@ -368,5 +371,56 @@ export class ProjectMemberRoleChanged implements ProjectEvent {
 			sequenceNumber,
 			new Date(),
 		);
+	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToProjectEvent(json: any): ProjectEvent {
+	const id = convertJSONToProjectId(json.data.aggregateId);
+	switch (json.type) {
+		case "ProjectCreated": {
+			const name = convertJSONToProjectName(json.data.name);
+			const members = convertJSONToMembers(json.data.members);
+			return ProjectCreated.of(id, name, members, json.data.sequenceNumber);
+		}
+		case "ProjectDeleted": {
+			return ProjectDeleted.of(id, json.data.sequenceNumber);
+		}
+		case "ProjectSprintAdded": {
+			const sprint = convertJSONToSprint(json.data.sprint);
+			return ProjectSprintAdded.of(id, sprint, json.data.sequenceNumber);
+		}
+		case "ProjectSprintEdited": {
+			const sprint = convertJSONToSprint(json.data.sprint);
+			return ProjectSprintEdited.of(id, sprint, json.data.sequenceNumber);
+		}
+		case "ProjectSprintStarted": {
+			const sprintId = convertJSONToSprintId(json.data.sprintId);
+			return ProjectSprintStarted.of(id, sprintId, json.data.sequenceNumber);
+		}
+		case "ProjectSprintCompleted": {
+			const sprintId = convertJSONToSprintId(json.data.sprintId);
+			return ProjectSprintCompleted.of(id, sprintId, json.data.sequenceNumber);
+		}
+		case "ProjectMemberAdded": {
+			const member = convertJSONToMember(json.data.member);
+			return ProjectMemberAdded.of(id, member, json.data.sequenceNumber);
+		}
+		case "ProjectMemberRemoved": {
+			const accountId = convertJSONToAccountId(json.data.accountId);
+			return ProjectMemberRemoved.of(id, accountId, json.data.sequenceNumber);
+		}
+		case "ProjectMemberRoleChanged": {
+			const accountId = convertJSONToAccountId(json.data.accountId);
+			const memberRole = json.data.memberRole;
+			return ProjectMemberRoleChanged.of(
+				id,
+				accountId,
+				memberRole,
+				json.data.sequenceNumber,
+			);
+		}
+		default:
+			throw new Error(`Unknown type: ${json.type}`);
 	}
 }
