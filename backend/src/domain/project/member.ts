@@ -1,5 +1,5 @@
-import type { AccountId } from "../account/account-id";
-import type { MemberId } from "./member-id";
+import { type AccountId, convertJSONToAccountId } from "../account/account-id";
+import { type MemberId, convertJSONToMemberId } from "./member-id";
 
 export type MemberRole = "Lead" | "Admin" | "Normal" | "Readonly";
 
@@ -65,4 +65,16 @@ export class Member {
 			Member.name
 		}(${this.id.toString()}, ${this.accountId.toString()}, ${this.memberRole})`;
 	}
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: any is used to match the type of the JSON object
+export function convertJSONToMember(json: any): Member {
+	const id = convertJSONToMemberId(json.id);
+	const accountId = convertJSONToAccountId(json.accountId);
+
+	return Member.of({
+		id,
+		accountId,
+		memberRole: json.memberRole,
+	});
 }
