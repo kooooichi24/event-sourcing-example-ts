@@ -29,7 +29,7 @@ functions:
       - stream:
           type: dynamodb
           arn:
-            !GetAtt JournalTable.StreamArn
+            Fn::GetAtt: [ JournalTable, StreamArn ]
 
 resources:
   Resources:
