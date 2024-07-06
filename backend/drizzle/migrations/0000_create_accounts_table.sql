@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS "account_roles" (
 CREATE TABLE IF NOT EXISTS "accounts" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"name" varchar(256) NOT NULL,
-	"role" varchar(32)
+	"role" varchar(32) NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
