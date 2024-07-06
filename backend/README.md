@@ -22,6 +22,7 @@ TODO: Add prerequisites
 
     ```bash
     yarn setup:db
+    yarn drizzle:migrate
     ```
 
 3. Start the local server
