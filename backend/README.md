@@ -29,3 +29,18 @@ TODO: Add prerequisites
     ```bash
     yarn deploy:local
     ```
+
+### Commands
+
+```sh
+# Query
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"query": "{ hello }"}' \
+  http://localhost:3000
+
+
+# Command
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"query": "mutation { createAccount(name: \"NAME\", role: \"Admin\") }"}' \
+  http://localhost:3000
+```
