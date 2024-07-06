@@ -10,8 +10,8 @@ export class WorkspaceName {
 		if (this.value.length === 0) {
 			throw new Error("WorkspaceName cannot be empty");
 		}
-		if (this.value.length > 20) {
-			throw new Error("WorkspaceName cannot be longer than 20 characters");
+		if (this.value.length > 30) {
+			throw new Error("WorkspaceName cannot be longer than 30 characters");
 		}
 		if (!isValidDomain(`${this.value}.example.com`)) {
 			throw new Error("Invalid domain format");

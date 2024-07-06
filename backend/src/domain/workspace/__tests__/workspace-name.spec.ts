@@ -25,15 +25,15 @@ describe("workspace-name", () => {
 			expect(act).toThrow("WorkspaceName cannot be empty");
 		});
 
-		it("should throw an error when the value is longer than 20 characters", () => {
+		it("should throw an error when the value is longer than 30 characters", () => {
 			// Given
-			const value = faker.lorem.words(21);
+			const value = faker.lorem.words(31);
 
 			// When
 			const act = () => WorkspaceName.of(value);
 
 			// Then
-			expect(act).toThrow("WorkspaceName cannot be longer than 20 characters");
+			expect(act).toThrow("WorkspaceName cannot be longer than 30 characters");
 		});
 
 		it.each`

@@ -2,6 +2,7 @@ service: event-sourcing-example-ts-graphql-backend
 
 plugins:
   - serverless-esbuild
+  - serverless-offline-dynamodb-streams
   - serverless-dynamodb
   - serverless-offline
 
@@ -113,3 +114,11 @@ custom:
       seed: false
       convertEmptyValues: true
       noStart: true
+  serverless-offline-dynamodb-streams:
+    apiVersion: '2013-12-02'
+    endpoint: http://127.0.0.1:18000
+    region: ap-northeast-1
+    accessKeyId: root
+    secretAccessKey: root
+    skipCacheInvalidation: false
+    readInterval: 500
