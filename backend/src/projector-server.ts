@@ -1,15 +1,22 @@
 import type { DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
 
 export const handler: DynamoDBStreamHandler = async (
-  event: DynamoDBStreamEvent
+	event: DynamoDBStreamEvent,
 ) => {
-  console.log("######################");
-  console.log("projector is started!");
-  console.log("######################");
+	try {
+		console.log("######################");
+		console.log("projector is started!");
+		console.log("######################");
 
-  console.log("DynamoDB Stream Event:", JSON.stringify(event, null, 2));
+		console.log({
+			message: "DynamoDB Stream Event:",
+			event: JSON.stringify(event, null, 2),
+		});
 
-  console.log("######################");
-  console.log("projector is end!");
-  console.log("######################");
+		console.log("######################");
+		console.log("projector is end!");
+		console.log("######################");
+	} catch (e: unknown) {
+		console.error({ message: "Error processing DynamoDB Stream", error: e });
+	}
 };
