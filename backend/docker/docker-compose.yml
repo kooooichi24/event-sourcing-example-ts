@@ -33,4 +33,3 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: user
       POSTGRES_DB: postgres
-    hostname: postgres

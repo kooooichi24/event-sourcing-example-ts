@@ -8,12 +8,14 @@
     "node": ">=20.15.0"
   },
   "scripts": {
-    "setup:db": "docker-compose -p event-sourcing-example-ts -f ./db/docker-compose.yml up -d",
     "test": "jest",
     "deploy:local": "serverless offline start",
     "format": "biome format --write ./src",
     "lint": "tsc --noEmit && npm run format && biome check --apply ./src",
-    "lint:ci": "tsc --noEmit && biome ci ./src"
+    "lint:ci": "tsc --noEmit && biome ci ./src",
+    "setup:db": "docker-compose -p event-sourcing-example-ts -f ./docker/docker-compose.yml up -d",
+    "drizzle:gen": "drizzle-kit generate --name ",
+    "drizzle:migrate": "drizzle-kit migrate"
   },
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "^3.413.0",
@@ -25,25 +27,29 @@
     "@types/aws-lambda": "^8.10.140",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
     "@types/uuid": "^10.0.0",
+    "drizzle-kit": "^0.22.8",
     "esbuild": "^0.23.0",
     "jest": "^29.7.0",
     "serverless": "^3.39.0",
     "serverless-dynamodb": "^0.2.53",
     "serverless-esbuild": "^1.52.1",
     "serverless-offline": "^13.6.0",
-    "typescript": "^5.5.3",
-    "serverless-offline-dynamodb-streams": "^7.0.0"
+    "serverless-offline-dynamodb-streams": "^7.0.0",
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "@apollo/server": "^4.10.4",
     "@as-integrations/aws-lambda": "^3.1.0",
     "dayjs": "^1.11.11",
+    "drizzle-orm": "^0.31.2",
     "email-validator": "^2.0.4",
     "event-store-adapter-js": "^2.1.32",
     "fp-ts": "^2.16.7",
     "graphql": "^16.9.0",
     "is-valid-domain": "^0.1.6",
+    "pg": "^8.12.0",
     "uuid": "^10.0.0"
   }
 }
