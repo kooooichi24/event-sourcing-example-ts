@@ -8,7 +8,7 @@
     "node": ">=20.15.0"
   },
   "scripts": {
-    "setup:db": "docker-compose -f ./db/event-store/docker-compose.yml up -d",
+    "setup:db": "docker-compose -f ./db/docker-compose.yml up -d",
     "test": "jest",
     "deploy:local": "serverless offline start",
     "format": "biome format --write ./src",
