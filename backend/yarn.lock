@@ -5143,6 +5143,22 @@ aws-dynamodb-local@^0.0.11:
   dependencies:
     tar "^6.2.0"
 
+aws-sdk@^2.1234.0:
+  version "2.1655.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1655.0.tgz#62bbc96bb8057876e41e280604c5bcdde9d48dc4"
+  integrity sha512-Tec0/ZHK8ES6NvAEJhgEm3znyoPb4QUuyQZ2RdvbNTbpJDbeeDuu4BaCAR5HbEVXREVk1/8OBDMsWW1B5lkcww==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.16.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    util "^0.12.4"
+    uuid "8.0.0"
+    xml2js "0.6.2"
+
 aws-sdk@^2.1404.0:
   version "2.1651.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1651.0.tgz#1b3cd731dbbfd08072793c5d3e480953b689c0eb"
@@ -6124,6 +6140,11 @@ dynamodb-local@0.0.34:
     mkdirp "~0.5.0"
     q "~1.4.1"
     tar "^4.4.19"
+
+dynamodb-streams-readable@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/dynamodb-streams-readable/-/dynamodb-streams-readable-3.0.0.tgz#0a30f8e51d748062574d0ccbc61215ea62c6f535"
+  integrity sha512-pXnSUlNmx16uMf2d5D1+K0fNMdp2o8U2kDDA80Xur+E939/0ARjBo6rgMtziArptJdMSTU5OeVHDB5FwV3SaVQ==
 
 eastasianwidth@^0.2.0:
   version "0.2.0"
@@ -9374,6 +9395,15 @@ serverless-esbuild@^1.52.1:
     p-map "^4.0.0"
     ramda "^0.28.0"
     semver "^7.3.8"
+
+serverless-offline-dynamodb-streams@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/serverless-offline-dynamodb-streams/-/serverless-offline-dynamodb-streams-7.0.0.tgz#c7cca7c1c4d7fa04f32735fbe807b1bbabd79669"
+  integrity sha512-/vq4uGC8v1xCIBfCuglUOHAnAGv/fJBdgZg55HhcTyMlz+i/ZGHi3hg3JLNPdhHo0kqc0u6nwVpVjWy5eaunBg==
+  dependencies:
+    aws-sdk "^2.1234.0"
+    dynamodb-streams-readable "^3.0.0"
+    lodash "^4.17.21"
 
 serverless-offline@^13.6.0:
   version "13.6.0"
