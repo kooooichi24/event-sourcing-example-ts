@@ -23,6 +23,13 @@ functions:
       - httpApi:
           path: /
           method: GET
+  projector:
+    handler: src/projector-server.handler
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            !GetAtt JournalTable.StreamArn
 
 resources:
   Resources:
