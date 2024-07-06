@@ -1,21 +1,36 @@
 version: '3.8'
 services:
+  ##################################
+  # EventStore
+  ##################################
   dynamodb-local:
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: es-example-ts.dynamodb.local
+    command: -jar DynamoDBLocal.jar -sharedDb
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb.local
     ports:
-      - "18000:8000"
-    volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
+      - 18000:8000
     working_dir: /home/dynamodblocal
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin
-    container_name: es-example-ts.dynamodb-admin.local
+    container_name: dynamodb-admin.local
     ports:
-      - "18001:8001"
+      - 18001:8001
     environment:
       DYNAMO_ENDPOINT: dynamodb-local:8000
       AWS_DEFAULT_REGION: ap-northeast-1
     depends_on:
       - dynamodb-local
+  ##################################
+  # Read Database
+  ##################################
+  postgres:
+    image: postgres:16
+    ports:
+      - 15432:5432
+    container_name: postgres.local
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: postgres
+    hostname: postgres
