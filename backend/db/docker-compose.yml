@@ -24,7 +24,7 @@ services:
   # Read Database
   ##################################
   postgres:
-    image: postgres:latest
+    image: postgres:16
     ports:
       - 15432:5432
     container_name: postgres.local
