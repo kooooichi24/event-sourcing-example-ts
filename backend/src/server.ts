@@ -9,14 +9,14 @@ import {
 	Account,
 	type AccountRole,
 	convertJSONToAccount,
-} from "./domain/account/account";
+} from "./command/domain/account/account";
 import {
 	type AccountEvent,
 	convertJSONToAccountEvent,
-} from "./domain/account/account-events";
-import type { AccountId } from "./domain/account/account-id";
-import { AccountName } from "./domain/account/account-name";
-import { AccountRepository } from "./interface-adapter/repository/account/account-repository";
+} from "./command/domain/account/account-events";
+import type { AccountId } from "./command/domain/account/account-id";
+import { AccountName } from "./command/domain/account/account-name";
+import { AccountRepository } from "./command/interface-adapter/repository/account/account-repository";
 
 const JOURNAL_TABLE_NAME = "journal";
 const SNAPSHOT_TABLE_NAME = "snapshot";
