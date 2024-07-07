@@ -7181,10 +7181,10 @@ fp-ts@^2.13.1:
   resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.16.3.tgz#0862d583cd8673717dbad8576c0f58afda27c83a"
   integrity sha512-REm0sOecd4inACbAiFeOxpyOgB+f0OqhmZBBVOc5Ku1HqdroDU5uxYu9mybKj+be4DQ5L2YI6LuosjAfmuJCBQ==
 
-fp-ts@^2.16.7:
-  version "2.16.7"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.16.7.tgz#c9095992069d4026a9de4abfa1321c5e55422b76"
-  integrity sha512-Xiux+4mHHPj32/mrqN3XIIqEKk/MousgoC2FIaCwehpPjBI4oDrLvQEyQ/2T1sbTe0s/YIQqF98z+uHJLVoS9Q==
+fp-ts@^2.16.8:
+  version "2.16.8"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.16.8.tgz#dfa1ea1c967ac6794c43ce877aeb8ed76f5e0df7"
+  integrity sha512-nmDtNqmMZkOxu0M5hkrS9YA15/KPkYkILb6Axg9XBAoUoYEtzg+LFmVWqZrl9FNttsW0qIUpx9RCA9INbv+Bxw==
 
 fresh@0.5.2:
   version "0.5.2"
