@@ -33,7 +33,7 @@
     "esbuild": "^0.23.0",
     "jest": "^29.7.0",
     "serverless": "^3.39.0",
-    "serverless-dynamodb": "^0.2.53",
+    "serverless-dynamodb": "^0.2.54",
     "serverless-esbuild": "^1.52.1",
     "serverless-offline": "^13.6.0",
     "serverless-offline-dynamodb-streams": "^7.0.0",

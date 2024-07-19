@@ -9841,10 +9841,10 @@ serve-static@1.15.0:
     parseurl "~1.3.3"
     send "0.18.0"
 
-serverless-dynamodb@^0.2.53:
-  version "0.2.53"
-  resolved "https://registry.yarnpkg.com/serverless-dynamodb/-/serverless-dynamodb-0.2.53.tgz#263bce8737d70a13e82058460fbe9c3d0a73a1d0"
-  integrity sha512-WffFxjZdjR8OKOdIyU8oS6hEguSM2djQiT9QI4JVr5C1WSxyt1UU2+qiM1p8DvZHDCiwbE/H5RRKergxLdkMkw==
+serverless-dynamodb@^0.2.54:
+  version "0.2.54"
+  resolved "https://registry.yarnpkg.com/serverless-dynamodb/-/serverless-dynamodb-0.2.54.tgz#c34748ba5cb5f46d971053b19e9aeaf93c99e4bb"
+  integrity sha512-3nZqJ4+3I38IaHUtwW2bllqzbONFavlYxn8xHPv8NlyGwKj4f4hoK3H4lXsofWe/Y8I2vskP3ULFRBXmuU2guw==
   dependencies:
     "@aws-sdk/client-dynamodb" "^3.428.0"
     "@aws-sdk/lib-dynamodb" "^3.428.0"
