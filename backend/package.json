@@ -22,7 +22,7 @@
     "@biomejs/biome": "^1.8.3",
     "@faker-js/faker": "^8.4.1",
     "@shelf/jest-dynamodb": "^3.4.4",
-    "@swc/core": "^1.7.6",
+    "@swc/core": "^1.7.9",
     "@swc/jest": "^0.2.36",
     "@types/aws-lambda": "^8.10.142",
     "@types/jest": "^29.5.12",
