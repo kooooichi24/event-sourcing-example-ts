@@ -2696,10 +2696,10 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
-"@drizzle-team/brocli@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@drizzle-team/brocli/-/brocli-0.8.2.tgz#a397253fa1094b16f761b776f39dbdd119838ef7"
-  integrity sha512-zTrFENsqGvOkBOuHDC1pXCkDXNd2UhP4lI3gYGhQ1R1SPeAAfqzPsV1dcpMy4uNU6kB5VpU5NGhvwxVNETR02A==
+"@drizzle-team/brocli@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@drizzle-team/brocli/-/brocli-0.10.1.tgz#8b73d65eaf2f6d04f45718ea6f4d789d69526cd3"
+  integrity sha512-AHy0vjc+n/4w/8Mif+w86qpppHuF3AyXbcWW+R/W7GNA3F5/p2nuhlkCJaTXSLZheB4l1rtHzOfr9A7NwoR/Zg==
 
 "@esbuild-kit/core-utils@^3.3.2":
   version "3.3.2"
@@ -6600,12 +6600,12 @@ dotenv@^16.3.1:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
   integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
-drizzle-kit@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.24.0.tgz#64bb400b2a1a8681f749fc1eb8e6a62c908ff3ab"
-  integrity sha512-rUl5Rf5HLOVkAwHEVEi8xgulIRWzoys0q77RHGCxv5e9v8AI3JGFg7Ug5K1kn513RwNZbuNJMUKOXo0j8kPRgg==
+drizzle-kit@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.24.1.tgz#43a5d054b7d7ecf43c85c940e82740e66529d262"
+  integrity sha512-y47ZuFpy3ZEz5v2P4Q4m7CZpC9infdmFAVP8klfl92hyBBvgWlyFnriDkycK2HXqB1PrYWNTck2p5TfFY5+EWw==
   dependencies:
-    "@drizzle-team/brocli" "^0.8.2"
+    "@drizzle-team/brocli" "^0.10.1"
     "@esbuild-kit/esm-loader" "^2.5.5"
     esbuild "^0.19.7"
     esbuild-register "^3.5.0"
