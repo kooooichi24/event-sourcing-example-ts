@@ -10081,10 +10081,10 @@ serverless-dynamodb@^0.2.54:
     "@aws-sdk/lib-dynamodb" "^3.428.0"
     aws-dynamodb-local "^0.0.11"
 
-serverless-esbuild@^1.52.1:
-  version "1.52.1"
-  resolved "https://registry.yarnpkg.com/serverless-esbuild/-/serverless-esbuild-1.52.1.tgz#ef893be178c4b0bece6d0493a3644f65d3df5e0e"
-  integrity sha512-sTEVoJMFO213SJyEEvW4yf3FbxRkn3jZgp/bA2zOguVXv2veNptVzo3Cmn7pZVIrjv8HKH6uEq/E65bJhOO5yA==
+serverless-esbuild@^1.53.0:
+  version "1.53.0"
+  resolved "https://registry.yarnpkg.com/serverless-esbuild/-/serverless-esbuild-1.53.0.tgz#a2baba83425d879405db551e13f833b944cc47a3"
+  integrity sha512-hMtxZo04ag93gFZ8zg8T4KzZvYGkuNyeAczXim9TXkHXQWpw6jVl98VZUzfsV434iF22k04ZMU+QTfPg1w91iA==
   dependencies:
     acorn "^8.8.1"
     acorn-walk "^8.2.0"
