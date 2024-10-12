@@ -10229,10 +10229,10 @@ serverless-dynamodb@^0.2.54:
     "@aws-sdk/lib-dynamodb" "^3.428.0"
     aws-dynamodb-local "^0.0.11"
 
-serverless-esbuild@^1.54.3:
-  version "1.54.3"
-  resolved "https://registry.yarnpkg.com/serverless-esbuild/-/serverless-esbuild-1.54.3.tgz#a46723789fc085a8e4fb486c313f540d27d1f86c"
-  integrity sha512-PWouZMPlI8gKuxdcJHkNIk8dfYbWMeDKHYufIH72hfn9BtZW+FEKzE4BdjwvSmtCqvSfDVj6ymVB+Jdq/U3Jpw==
+serverless-esbuild@^1.54.4:
+  version "1.54.4"
+  resolved "https://registry.yarnpkg.com/serverless-esbuild/-/serverless-esbuild-1.54.4.tgz#9f275bbcc1a063667f2b13ee9ae139e855cd7ee9"
+  integrity sha512-M35q1aQuJ+GyCHmt1wm/rOR15ABcHON2AKOSuhvl2F/VUv4x4YCGcdRzsMZN2D91jsF0Mvf0AsBVbmaDbNC1Dw==
   dependencies:
     "@effect/platform" "^0.65.5"
     "@effect/platform-node" "^0.60.5"
