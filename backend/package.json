@@ -35,7 +35,7 @@
     "serverless": "^3.39.0",
     "serverless-dynamodb": "^0.2.55",
     "serverless-esbuild": "^1.54.5",
-    "serverless-offline": "^13.8.2",
+    "serverless-offline": "^13.8.3",
     "serverless-offline-dynamodb-streams": "^7.0.0",
     "typescript": "^5.6.3"
   },
