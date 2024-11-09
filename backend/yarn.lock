@@ -6703,10 +6703,10 @@ dotenv@^16.3.1:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
   integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
-drizzle-kit@^0.27.1:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.27.1.tgz#c0776a82d75bc0df185e43c2b790b0d2140e597a"
-  integrity sha512-4BNA0T2blN+jW5wSwhtc+FIlCMuxYSMWCnYYdOBi5rttwq8aVXRUid0d0NCzcBKtZQSPZGAUxy+TXr7Q1OgEug==
+drizzle-kit@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.28.0.tgz#76e16d576090b40edee3e2f57c582329c53a2335"
+  integrity sha512-KqI+CS2Ga9GYIrXpxpCDUJJrH/AT/k4UY0Pb4oRgQEGkgN1EdCnqp664cXgwPWjDr5RBtTsjZipw8+8C//K63A==
   dependencies:
     "@drizzle-team/brocli" "^0.10.2"
     "@esbuild-kit/esm-loader" "^2.5.5"
