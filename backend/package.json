@@ -37,7 +37,7 @@
     "serverless-esbuild": "^1.55.0",
     "serverless-offline": "^13.9.0",
     "serverless-offline-dynamodb-streams": "^7.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "@apollo/server": "^4.11.3",
