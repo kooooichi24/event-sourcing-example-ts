@@ -6724,10 +6724,10 @@ drizzle-kit@^0.30.5:
     esbuild-register "^3.5.0"
     gel "^2.0.0"
 
-drizzle-orm@^0.39.3:
-  version "0.39.3"
-  resolved "https://registry.yarnpkg.com/drizzle-orm/-/drizzle-orm-0.39.3.tgz#4f844d5849a0236082340e47e2dc9eecc1e0e64c"
-  integrity sha512-EZ8ZpYvDIvKU9C56JYLOmUskazhad+uXZCTCRN4OnRMsL+xAJ05dv1eCpAG5xzhsm1hqiuC5kAZUCS924u2DTw==
+drizzle-orm@^0.40.0:
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/drizzle-orm/-/drizzle-orm-0.40.0.tgz#bdcc58d3340ef14e592c6b6c65db89448b08def9"
+  integrity sha512-7ptk/HQiMSrEZHnAsSlBESXWj52VwgMmyTEfoNmpNN2ZXpcz13LwHfXTIghsAEud7Z5UJhDOp8U07ujcqme7wg==
 
 duration@^0.2.2:
   version "0.2.2"
