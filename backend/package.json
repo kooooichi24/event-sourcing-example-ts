@@ -24,7 +24,7 @@
     "@shelf/jest-dynamodb": "^3.5.0",
     "@swc/core": "^1.11.13",
     "@swc/jest": "^0.2.37",
-    "@types/aws-lambda": "^8.10.147",
+    "@types/aws-lambda": "^8.10.148",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.19",
     "@types/pg": "^8.11.11",
