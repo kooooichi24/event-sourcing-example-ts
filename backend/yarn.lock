@@ -7169,10 +7169,10 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-event-store-adapter-js@^2.2.122:
-  version "2.2.122"
-  resolved "https://registry.yarnpkg.com/event-store-adapter-js/-/event-store-adapter-js-2.2.122.tgz#ae6d6faac6bacd6b1dae87bba5a2df6eba8cbca2"
-  integrity sha512-IlH00Cg8zHJSmevlz9wwqa5pqYQytFWwnPbjJPFomcECJwWlUqazEXNqjsQXAf6jLhP1TBA8tFi2dX463FvXsA==
+event-store-adapter-js@^2.2.124:
+  version "2.2.124"
+  resolved "https://registry.yarnpkg.com/event-store-adapter-js/-/event-store-adapter-js-2.2.124.tgz#50aee73e384301a5fe20df46bbf1fcf700af2539"
+  integrity sha512-Akes1+WieIoxP8VcHcdtjTTg9WsaT5MsjrArGKwGZsAaaQnQNU3PGx0KabMtH4IUNottK2aiqwYe0ZAmG3t1DA==
   dependencies:
     "@aws-sdk/client-dynamodb" "^3.413.0"
     aws-sdk "^2.1459.0"
