@@ -27,7 +27,7 @@
     "@types/aws-lambda": "^8.10.149",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.19",
-    "@types/pg": "^8.11.12",
+    "@types/pg": "^8.11.13",
     "@types/uuid": "^10.0.0",
     "drizzle-kit": "^0.30.6",
     "esbuild": "^0.25.2",
