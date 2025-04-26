@@ -27,7 +27,7 @@
     "@types/aws-lambda": "^8.10.149",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.19",
-    "@types/pg": "^8.11.13",
+    "@types/pg": "^8.11.14",
     "@types/uuid": "^10.0.0",
     "drizzle-kit": "^0.31.0",
     "esbuild": "^0.25.3",
@@ -49,7 +49,7 @@
     "fp-ts": "^2.16.10",
     "graphql": "^16.11.0",
     "is-valid-domain": "^0.1.6",
-    "pg": "^8.14.1",
+    "pg": "^8.15.6",
     "uuid": "^10.0.0"
   }
 }
