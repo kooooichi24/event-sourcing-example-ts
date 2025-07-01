@@ -20,7 +20,7 @@
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "^3.413.0",
     "@biomejs/biome": "^1.9.4",
-    "@faker-js/faker": "^8.4.1",
+    "@faker-js/faker": "^9.9.0",
     "@shelf/jest-dynamodb": "^3.5.0",
     "@swc/core": "^1.12.1",
     "@swc/jest": "^0.2.38",
