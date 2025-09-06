@@ -46,7 +46,7 @@
     "drizzle-orm": "^0.44.5",
     "email-validator": "^2.0.4",
     "event-store-adapter-js": "^2.2.158",
-    "fp-ts": "^2.16.10",
+    "fp-ts": "^2.16.11",
     "graphql": "^16.11.0",
     "is-valid-domain": "^0.1.6",
     "pg": "^8.16.0",
