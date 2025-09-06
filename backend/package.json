@@ -45,7 +45,7 @@
     "dayjs": "^1.11.18",
     "drizzle-orm": "^0.44.5",
     "email-validator": "^2.0.4",
-    "event-store-adapter-js": "^2.2.146",
+    "event-store-adapter-js": "^2.2.158",
     "fp-ts": "^2.16.10",
     "graphql": "^16.11.0",
     "is-valid-domain": "^0.1.6",
