@@ -7222,15 +7222,15 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-event-store-adapter-js@^2.2.158:
-  version "2.2.158"
-  resolved "https://registry.yarnpkg.com/event-store-adapter-js/-/event-store-adapter-js-2.2.158.tgz#a3f5d62626f526e3bebf4c737f4a25267e069858"
-  integrity sha512-DYZ0TloWmNafz2Bd1E9FFDepZgSpiNoYxONz5FBBsNS2xov2d8XLrUAL/bOaKsoi6qLUwgXHEUwPQc6SDuPeuQ==
+event-store-adapter-js@^2.2.160:
+  version "2.2.160"
+  resolved "https://registry.yarnpkg.com/event-store-adapter-js/-/event-store-adapter-js-2.2.160.tgz#c3afa7485b184fc533515697a0f119fdd28c0dec"
+  integrity sha512-RcCrpHt0B7KtrakFKvnMUmGubxGsVEnGltz8XgNWxJpQ9M+C2uzi5inGxQgZ+OBh6bEo2mbI2PZCXVuYUpAdaA==
   dependencies:
     "@aws-sdk/client-dynamodb" "^3.413.0"
     aws-sdk "^2.1459.0"
     moment "^2.29.4"
-    ulid "^2.3.0"
+    ulid "^3.0.0"
     winston "^3.10.0"
 
 event-target-shim@^5.0.0:
@@ -11067,10 +11067,10 @@ typescript@^5.9.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.2.tgz#d93450cddec5154a2d5cabe3b8102b83316fb2a6"
   integrity sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==
 
-ulid@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/ulid/-/ulid-2.3.0.tgz#93063522771a9774121a84d126ecd3eb9804071f"
-  integrity sha512-keqHubrlpvT6G2wH0OEfSW4mquYRcbe/J8NMmveoQOjUqmo+hXtO+ORCpWhdbZ7k72UtY61BL7haGxW6enBnjw==
+ulid@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ulid/-/ulid-3.0.1.tgz#6fae1779938843f476702946931122d127cf3243"
+  integrity sha512-dPJyqPzx8preQhqq24bBG1YNkvigm87K8kVEHCD+ruZg24t6IFEFv00xMWfxcC4djmFtiTLdFuADn4+DOz6R7Q==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
