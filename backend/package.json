@@ -40,7 +40,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@apollo/server": "^4.12.2",
+    "@apollo/server": "^4.13.0",
     "@as-integrations/aws-lambda": "^3.1.0",
     "dayjs": "^1.11.19",
     "drizzle-orm": "^0.44.7",
