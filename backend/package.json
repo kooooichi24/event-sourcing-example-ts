@@ -43,7 +43,7 @@
     "@apollo/server": "^4.13.0",
     "@as-integrations/aws-lambda": "^3.1.0",
     "dayjs": "^1.11.19",
-    "drizzle-orm": "^0.44.7",
+    "drizzle-orm": "^0.45.1",
     "email-validator": "^2.0.4",
     "event-store-adapter-js": "^2.2.166",
     "fp-ts": "^2.16.11",
