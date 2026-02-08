@@ -164,12 +164,12 @@
   resolved "https://registry.yarnpkg.com/@apollo/utils.withrequired/-/utils.withrequired-2.0.1.tgz#e72bc512582a6f26af150439f7eb7473b46ba874"
   integrity sha512-YBDiuAX9i1lLc6GeTy1m7DGLFn/gMnvXqlalOIMjM7DeOgIacEjjfwPqb0M1CQ2v11HhR15d1NmxJoRCfrNqcA==
 
-"@as-integrations/aws-lambda@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@as-integrations/aws-lambda/-/aws-lambda-3.1.0.tgz#997c06e6797c17cdcaeb02fc16b2bcba8efb3a7b"
-  integrity sha512-V7H9ICXgt5KDKfEjYSRB59lEVfQqi7oSIZEeBGzPrmfhSPIHyFCNJyHi1hXdJmRb6GHpCNmtffmqRgsB0i9k3w==
+"@as-integrations/aws-lambda@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@as-integrations/aws-lambda/-/aws-lambda-4.0.1.tgz#ca0d574119be93a2840da9f7cd811f249a237e57"
+  integrity sha512-1vpz2V6MhuPhO0m5vE8NUVR+4RoM5nDO/iH+IVHovE0aOWUIoDbAqQDKCUXTV8/nJO/GBycQt/z/Mp9MX79Hkg==
   dependencies:
-    "@types/aws-lambda" "^8.10.106"
+    "@types/aws-lambda" "^8.10.152"
 
 "@aws-crypto/crc32@3.0.0":
   version "3.0.0"
@@ -5261,12 +5261,7 @@
   resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.3.0.tgz#fe98a93fe789247e998c75e74e9c7c63217aa276"
   integrity sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==
 
-"@types/aws-lambda@^8.10.106":
-  version "8.10.136"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.136.tgz#12a2af86b9123f4e4549992b27e1bf0dcf60d9f9"
-  integrity sha512-cmmgqxdVGhxYK9lZMYYXYRJk6twBo53ivtXjIUEFZxfxe4TkZTZBK3RRWrY2HjJcUIix0mdifn15yjOAat5lTA==
-
-"@types/aws-lambda@^8.10.160":
+"@types/aws-lambda@^8.10.152", "@types/aws-lambda@^8.10.160":
   version "8.10.160"
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.160.tgz#7a3afdd919d730e4e2be7239d0af5f36a8b0ce1e"
   integrity sha512-uoO4QVQNWFPJMh26pXtmtrRfGshPUSpMZGUyUQY20FhfHEElEBOPKgVmFs1z+kbpyBsRs2JnoOPT7++Z4GA9pA==

@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.13.0",
-    "@as-integrations/aws-lambda": "^3.1.0",
+    "@as-integrations/aws-lambda": "^4.0.1",
     "dayjs": "^1.11.19",
     "drizzle-orm": "^0.45.1",
     "email-validator": "^2.0.4",
